@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/day_background">
+    android:background="@drawable/morning_background">
 
     <ImageView
         android:id="@+id/imageView"
@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/day_icon" />
+        app:srcCompat="@drawable/morning_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
