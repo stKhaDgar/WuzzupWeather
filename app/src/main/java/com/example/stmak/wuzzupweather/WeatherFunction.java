@@ -17,7 +17,7 @@ import java.util.Locale;
 public class WeatherFunction {
 
     private static final String OPEN_WEATHER_MAP_URL =
-            "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
+            "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
@@ -64,11 +64,11 @@ public class WeatherFunction {
         }
 
         @Override
-        protected JSONObject doInBackground(String... params) {
+        protected JSONObject doInBackground(String... city) {
 
             JSONObject jsonWeather = null;
             try {
-                jsonWeather = getWeatherJSON(params[0], params[1]);
+                jsonWeather = getWeatherJSON(city[0]);
             } catch (Exception e) {
                 Log.d("Error", "Cannot process JSON results", e);
             }
@@ -103,9 +103,9 @@ public class WeatherFunction {
         }
     }
 
-    public static JSONObject getWeatherJSON(String lat, String lon){
+    public static JSONObject getWeatherJSON(String city){
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
+            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, city));
             HttpURLConnection connection =
                     (HttpURLConnection)url.openConnection();
 
@@ -133,8 +133,5 @@ public class WeatherFunction {
             return null;
         }
     }
-
-
-
 
 }

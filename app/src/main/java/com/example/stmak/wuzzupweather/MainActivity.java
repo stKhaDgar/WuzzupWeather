@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView arrowBack;
 
     // Weather members
-    TextView currentTemperatureField;
-    TextView currentCityField;
-    TextView currentCountryField;
+    private TextView currentTemperatureField;
+    private TextView currentCityField;
+    private TextView currentCountryField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +65,7 @@ public class MainActivity extends AppCompatActivity {
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
         }
 
-        currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
-        currentCityField = (TextView)findViewById(R.id.current_city);
-        currentCountryField = (TextView)findViewById(R.id.current_country);
-
-        WeatherFunction.placeIdTask asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String weather_temperature, String city, String country) {
-
-                currentTemperatureField.setText(weather_temperature);
-                currentCityField.setText(city);
-                currentCountryField.setText(country);
-
-            }
-        });
-        asyncTask.execute("48.45", "34.9833"); //  asyncTask.execute("Latitude", "Longitude")
-
+        changeCity("Dnipropetrovsk");
     }
 
     public void addListener(){
@@ -92,5 +78,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void changeCity(String city){
+        currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
+        currentCityField = (TextView)findViewById(R.id.current_city);
+        currentCountryField = (TextView)findViewById(R.id.current_country);
+
+        WeatherFunction.placeIdTask asyncTask;
+        asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
+            public void processFinish(String weather_temperature, String city, String country) {
+                currentTemperatureField.setText(weather_temperature);
+                currentCityField.setText(city);
+                currentCountryField.setText(country);
+            }
+        });
+
+        asyncTask.execute(city); //  asyncTask.execute("Latitude", "Longitude")
     }
 }
