@@ -20,14 +20,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
+        // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
         Integer currentTime = Integer.parseInt(timeformat.format(c.getTime()));
-
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
-
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
@@ -40,8 +39,5 @@ public class MainActivity extends AppCompatActivity {
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
         }
-
-        Toast.makeText(this, currentTime + "", Toast.LENGTH_LONG).show();
-
     }
 }

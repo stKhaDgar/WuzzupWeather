@@ -5,6 +5,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/day_background"
     tools:context=".MainActivity">
 
     <ImageView
@@ -13,7 +14,8 @@
         android:layout_height="150dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/day_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
