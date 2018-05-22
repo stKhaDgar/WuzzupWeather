@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView text_day;
     private TextView text_night;
 
-    private Button arrowBack;
+    private Button arrowBackButton;
+    private Button changeButton;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        Integer currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime()));     <---- CHANGE IT
+        Integer currentTime = 2; //Integer.parseInt(timeformat.format(c.getTime()));     <---- CHANGE IT
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
         if(currentTime >= 5 && currentTime < 12){
@@ -87,12 +88,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListener(){
-        arrowBack = (Button)findViewById(R.id.arrow_back_button);
-        arrowBack.setOnClickListener(
+        arrowBackButton = (Button)findViewById(R.id.arrow_back_button);
+        arrowBackButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         finish();
+                    }
+                }
+        );
+        changeButton = (Button)findViewById(R.id.change_button);
+        changeButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                     }
                 }
         );
