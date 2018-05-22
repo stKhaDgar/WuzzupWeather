@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     // Weather members
     TextView currentTemperatureField;
     TextView currentCityField;
+    TextView currentCountryField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        Integer currentTime = Integer.parseInt(timeformat.format(c.getTime()));
+        Integer currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime()));     <---- CHANGE IT
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
         if(currentTime >= 5 && currentTime < 12){
@@ -48,19 +49,21 @@ public class MainActivity extends AppCompatActivity {
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
         }
-        else if(currentTime >= 21 && currentTime < 5){
+        else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
         }
 
         currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
         currentCityField = (TextView)findViewById(R.id.current_city);
+        currentCountryField = (TextView)findViewById(R.id.current_country);
 
         WeatherFunction.placeIdTask asyncTask =new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String weather_temperature, String city) {
+            public void processFinish(String weather_temperature, String city, String country) {
 
                 currentTemperatureField.setText(weather_temperature);
                 currentCityField.setText(city);
+                currentCountryField.setText(country);
 
             }
         });

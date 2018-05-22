@@ -54,7 +54,7 @@ public class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2);
+        void processFinish(String output, String output2, String output3);
     }
 
 
@@ -92,9 +92,10 @@ public class WeatherFunction {
                     DateFormat df = DateFormat.getDateTimeInstance();
 
 
-                    String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
+                    String city = json.getString("name"); //+ ", " + json.getJSONObject("sys").getString("country");
+                    String country = json.getJSONObject("sys").getString("country");
                     String description = details.getString("description").toUpperCase(Locale.US);
-                    String temperature = String.format("%.0f", main.getDouble("temp"))+ "°";
+                    String temperature = String.format("%.0f", main.getDouble("temp"));
                     String humidity = main.getString("humidity") + "%";
                     String pressure = main.getString("pressure") + " hPa";
                     String updatedOn = df.format(new Date(json.getLong("dt")*1000));
@@ -102,7 +103,7 @@ public class WeatherFunction {
                             json.getJSONObject("sys").getLong("sunrise") * 1000,
                             json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    delegate.processFinish(temperature, city);
+                    delegate.processFinish(temperature, city, country);
 
                 }
             } catch (JSONException e) {
