@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView iconDayTaime;
 
+    // Weather members
+    TextView currentTemperatureField;
+    TextView currentCityField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +52,19 @@ public class MainActivity extends AppCompatActivity {
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
         }
+
+        currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
+        currentCityField = (TextView)findViewById(R.id.current_city);
+
+        WeatherFunction.placeIdTask asyncTask =new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
+            public void processFinish(String weather_temperature, String city) {
+
+                currentTemperatureField.setText(weather_temperature);
+                currentCityField.setText(city);
+
+            }
+        });
+        asyncTask.execute("48.45", "34.9833"); //  asyncTask.execute("Latitude", "Longitude")
+
     }
 }
