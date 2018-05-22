@@ -50,23 +50,17 @@ public class WeatherFunction {
         return icon;
     }
 
-
-
     public interface AsyncResponse {
 
         void processFinish(String output, String output2, String output3);
     }
-
-
-
-
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
 
         public AsyncResponse delegate = null;//Call back interface
 
         public placeIdTask(AsyncResponse asyncResponse) {
-            delegate = asyncResponse;//Assigning call back interfacethrough constructor
+            delegate = asyncResponse;//Assigning call back interface through constructor
         }
 
         @Override
@@ -78,8 +72,6 @@ public class WeatherFunction {
             } catch (Exception e) {
                 Log.d("Error", "Cannot process JSON results", e);
             }
-
-
             return jsonWeather;
         }
 
@@ -90,7 +82,6 @@ public class WeatherFunction {
                     JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                     JSONObject main = json.getJSONObject("main");
                     DateFormat df = DateFormat.getDateTimeInstance();
-
 
                     String city = json.getString("name"); //+ ", " + json.getJSONObject("sys").getString("country");
                     String country = json.getJSONObject("sys").getString("country");
@@ -109,16 +100,8 @@ public class WeatherFunction {
             } catch (JSONException e) {
                 //Log.e(LOG_TAG, "Cannot process JSON results", e);
             }
-
-
-
         }
     }
-
-
-
-
-
 
     public static JSONObject getWeatherJSON(String lat, String lon){
         try {

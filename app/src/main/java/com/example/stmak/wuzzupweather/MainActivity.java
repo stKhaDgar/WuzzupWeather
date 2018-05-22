@@ -1,6 +1,7 @@
 package com.example.stmak.wuzzupweather;
 
 import android.content.DialogInterface;
+import android.media.Image;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView iconDayTaime;
 
+    private ImageView arrowBack;
+
     // Weather members
     TextView currentTemperatureField;
     TextView currentCityField;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        addListener();
 
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         currentCityField = (TextView)findViewById(R.id.current_city);
         currentCountryField = (TextView)findViewById(R.id.current_country);
 
-        WeatherFunction.placeIdTask asyncTask =new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
+        WeatherFunction.placeIdTask asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String weather_temperature, String city, String country) {
 
                 currentTemperatureField.setText(weather_temperature);
@@ -75,5 +80,17 @@ public class MainActivity extends AppCompatActivity {
         });
         asyncTask.execute("48.45", "34.9833"); //  asyncTask.execute("Latitude", "Longitude")
 
+    }
+
+    public void addListener(){
+        arrowBack = (ImageView)findViewById(R.id.arrow_back);
+        arrowBack.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }
+        );
     }
 }
