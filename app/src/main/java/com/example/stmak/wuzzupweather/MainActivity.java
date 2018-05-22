@@ -1,10 +1,19 @@
 package com.example.stmak.wuzzupweather;
 
+import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -20,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");

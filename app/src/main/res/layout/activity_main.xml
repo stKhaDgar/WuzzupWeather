@@ -15,6 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         app:srcCompat="@drawable/day_icon" />
 
     <LinearLayout
@@ -28,11 +29,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />
+
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
