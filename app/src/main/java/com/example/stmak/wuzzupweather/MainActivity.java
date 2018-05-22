@@ -1,8 +1,10 @@
 package com.example.stmak.wuzzupweather;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.Image;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +29,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    // set background/icon from time
+    // set background/icon/colorText from time
     private ConstraintLayout mainLayout;
     private ImageView iconDayTaime;
+    private TextView text_morning;
+    private TextView text_day;
+    private TextView text_night;
 
-    private ImageView arrowBack;
+    private Button arrowBack;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -55,21 +62,32 @@ public class MainActivity extends AppCompatActivity {
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
+            text_morning = (TextView) findViewById(R.id.text_weather_morning);
+            text_morning.setText("Now");
+            text_morning.setTextColor(Color.parseColor("#ea607e"));
+
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
+            text_day = (TextView) findViewById(R.id.text_weather_day);
+            text_day.setText("Now");
+            text_day.setTextColor(Color.parseColor("#46cbf7"));
+
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
+            text_night = (TextView) findViewById(R.id.text_weather_night);
+            text_night.setText("Now");
+            text_night.setTextColor(Color.parseColor("#b056b8"));
         }
 
         changeCity("Dnipropetrovsk");
     }
 
     public void addListener(){
-        arrowBack = (ImageView)findViewById(R.id.arrow_back);
+        arrowBack = (Button)findViewById(R.id.arrow_back_button);
         arrowBack.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
