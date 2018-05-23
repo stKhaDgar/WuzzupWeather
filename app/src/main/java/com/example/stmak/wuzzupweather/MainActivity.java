@@ -1,8 +1,10 @@
 package com.example.stmak.wuzzupweather;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView text_morning;
     private TextView text_day;
     private TextView text_night;
+    private int currentTime;
 
     private ImageView arrowBack;
     private ImageView changeIcon;
@@ -73,16 +78,17 @@ public class MainActivity extends AppCompatActivity {
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        Integer currentTime = 8; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
+        currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
+
+        // Change from time
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
             text_morning = (TextView) findViewById(R.id.text_weather_morning);
             text_morning.setText("Now");
             text_morning.setTextColor(Color.parseColor("#ea607e"));
-
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
@@ -90,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             text_day = (TextView) findViewById(R.id.text_weather_day);
             text_day.setText("Now");
             text_day.setTextColor(Color.parseColor("#46cbf7"));
-
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
@@ -118,9 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).setView(R.layout.activity_main).create();
-                        dialog.getWindow().setDimAmount(Float.parseFloat("0.5")); // 0 - нет затемнения,  1- максимальное зтемнение
-                        dialog.show();
                     }
                 }
         );

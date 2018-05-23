@@ -63,22 +63,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/change_icon" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="62dp"
-                        android:backgroundTint="#ff000000"
-                        android:fontFamily="sans-serif-condensed"
-                        android:textColor="#fff"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/current_city"
                         android:layout_width="wrap_content"
@@ -95,6 +79,25 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/Edit_change_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="48dp"
+                        android:layout_marginStart="48dp"
+                        android:backgroundTint="#ff000000"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAlignment="viewStart"
+                        android:textColor="#fff"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/current_city"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/current_city" />
 
                     <TextView
                         android:id="@+id/current_country"
