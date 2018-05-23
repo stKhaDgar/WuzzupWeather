@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView text_day;
     private TextView text_night;
 
-    private Button arrowBackButton;
-    private Button changeButton;
+    private ImageView arrowBack;
+    private ImageView changeIcon;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -54,10 +56,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addListener();
 
+        // First layout (layout1) full Screen
+
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        Integer currentTime = 2; //Integer.parseInt(timeformat.format(c.getTime()));     <---- CHANGE IT
+        Integer currentTime = 8; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
         if(currentTime >= 5 && currentTime < 12){
@@ -88,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListener(){
-        arrowBackButton = (Button)findViewById(R.id.arrow_back_button);
-        arrowBackButton.setOnClickListener(
+        arrowBack = (ImageView) findViewById(R.id.arrow_back_icon);
+        arrowBack.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -97,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        changeButton = (Button)findViewById(R.id.change_button);
-        changeButton.setOnClickListener(
+        changeIcon = (ImageView) findViewById(R.id.change_icon);
+        changeIcon.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -109,16 +113,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeCity(String city){
+        // start animation
+        final Animation animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
+        changeIcon = (ImageView)findViewById(R.id.change_icon);
+        changeIcon.startAnimation(animationRotationCenter);
+        changeIcon.setClickable(false);
+
         currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
         currentCityField = (TextView)findViewById(R.id.current_city);
         currentCountryField = (TextView)findViewById(R.id.current_country);
-
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String weather_temperature, String city, String country) {
                 currentTemperatureField.setText(weather_temperature);
                 currentCityField.setText(city);
                 currentCountryField.setText(country);
+                changeIcon.clearAnimation();
+                changeIcon.setClickable(true);
             }
         });
 
