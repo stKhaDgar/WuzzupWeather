@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         // First layout (layout1) full Screen
 
+
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
