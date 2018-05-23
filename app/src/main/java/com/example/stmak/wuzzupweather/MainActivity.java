@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iconDayTaime;
     private TextView text_morning;
     private TextView text_day;
+    private TextView text_gradus;
     private TextView text_night;
     private int currentTime;
 
@@ -134,8 +135,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        // Change city
         Cities = getResources().getStringArray(R.array.city_array);
         changeCityEdit = (AutoCompleteTextView)findViewById(R.id.Edit_change_city);
+        text_gradus = (TextView)findViewById(R.id.text_gradus);
+        buttonAccept = (Button)findViewById(R.id.button_accept_change);
 
         List<String> cityList = Arrays.asList(Cities);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -148,25 +153,18 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        currentCity.setVisibility(View.INVISIBLE);
+                        buttonAccept.setVisibility(View.VISIBLE);
                         changeCityEdit.setVisibility(View.VISIBLE);
+                        currentCity.setVisibility(View.INVISIBLE);
+                        currentCountryField.setVisibility(View.INVISIBLE);
+                        currentTemperatureField.setVisibility(View.INVISIBLE);
+                        text_gradus.setVisibility(View.INVISIBLE);
                         changeCityEdit.requestFocus();
                         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
                     }
                 }
         );
-
-        changeCityEdit.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        currentTemperatureField.setText("228");
-                        changeCityEdit.clearFocus();
-                    }
-                }
-        );
-
     }
 //
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
