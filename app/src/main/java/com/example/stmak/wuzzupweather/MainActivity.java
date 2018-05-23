@@ -2,6 +2,7 @@ package com.example.stmak.wuzzupweather;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.media.Image;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +60,15 @@ public class MainActivity extends AppCompatActivity {
         addListener();
 
         // First layout (layout1) full Screen
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int screenHigh = size.y;
 
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layout1);
+
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+
+        params.height = screenHigh;
 
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
@@ -107,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).setView(R.layout.activity_main).create();
+                        dialog.getWindow().setDimAmount(Float.parseFloat("0.5")); // 0 - нет затемнения,  1- максимальное зтемнение
+                        dialog.show();
                     }
                 }
         );

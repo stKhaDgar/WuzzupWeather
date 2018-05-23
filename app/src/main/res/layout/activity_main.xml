@@ -42,22 +42,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="39dp"
-                        android:backgroundTint="#ff000000"
-                        android:fontFamily="sans-serif-condensed"
-                        android:textColor="#fff"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <ImageView
                         android:id="@+id/arrow_back_icon"
                         android:layout_width="40dp"
@@ -79,13 +63,29 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/change_icon" />
 
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="62dp"
+                        android:backgroundTint="#ff000000"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="#fff"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/current_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="151dp"
                         android:layout_marginStart="151dp"
-                        android:layout_marginTop="49dp"
+                        android:layout_marginTop="72dp"
                         android:fontFamily="sans-serif-condensed"
                         android:text="City"
                         android:textAlignment="center"
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="142dp"
                         android:layout_marginStart="142dp"
-                        android:layout_marginTop="160dp"
+                        android:layout_marginTop="200dp"
                         android:fontFamily="sans-serif-condensed"
                         android:text="00"
                         android:textAlignment="center"
@@ -138,6 +138,16 @@
                         app:layout_constraintStart_toEndOf="@+id/current_temperature"
                         app:layout_constraintTop_toTopOf="@+id/current_temperature" />
 
+                    <ImageView
+                        android:id="@+id/icon_day_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent" />
+
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -146,7 +156,7 @@
             <LinearLayout
                 android:id="@+id/layout2"
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="wrap_content">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -156,16 +166,6 @@
                     android:visibility="visible"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="333dp">
-
-                    <ImageView
-                        android:id="@+id/icon_day_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -180,7 +180,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icon_day_time">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:id="@+id/text_weather_morning"
