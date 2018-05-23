@@ -165,15 +165,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+
+        /* TODO: Если введено нормальное название города Аццепт вешает на себя не кликабель и делает всё визибл
+           TODO: иначе фокус кидается на editText и юзверь продолжает вводить правильное название */
+        buttonAccept.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonAccept.requestFocus();
+                        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInputFromWindow(buttonAccept.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                        buttonAccept.clearFocus();
+                    }
+                }
+        );
     }
-//
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            changeCityEdit.setText("Fuck");
-//            return false;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            buttonAccept.setVisibility(View.INVISIBLE);
+            changeCityEdit.setVisibility(View.INVISIBLE);
+            currentCity.setVisibility(View.VISIBLE);
+            currentCountryField.setVisibility(View.VISIBLE);
+            currentTemperatureField.setVisibility(View.VISIBLE);
+            text_gradus.setVisibility(View.VISIBLE);
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     public void changeCity(String city){
         // start animation
