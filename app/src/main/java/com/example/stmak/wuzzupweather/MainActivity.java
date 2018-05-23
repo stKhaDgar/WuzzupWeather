@@ -1,6 +1,7 @@
 package com.example.stmak.wuzzupweather;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -21,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private int currentTime;
 
     private ImageView arrowBack;
+
+    // Change City
     private ImageView changeIcon;
+    private AutoCompleteTextView changeCityEdit;
+    private EditText ed;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -118,11 +124,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        changeCityEdit = (AutoCompleteTextView)findViewById(R.id.Edit_change_city);
         changeIcon = (ImageView) findViewById(R.id.change_icon);
+        ed = (EditText) findViewById(R.id.edit_text);
         changeIcon.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(ed, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }
+        );
+
+        Button bt = (Button) findViewById(R.id.button);
+        bt.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(ed, InputMethodManager.SHOW_IMPLICIT);
                     }
                 }
         );

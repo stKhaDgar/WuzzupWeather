@@ -61,7 +61,18 @@
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:nextFocusDown="@+id/edit_text"
                         app:srcCompat="@drawable/change_icon" />
+
+                    <EditText
+                        android:id="@+id/edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="46dp"
+                        android:layout_marginTop="127dp"
+                        android:text="asdasdas"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/current_city"
@@ -75,29 +86,46 @@
                         android:textAlignment="center"
                         android:textColor="#fff"
                         android:textSize="22sp"
+                        android:inputType="text"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="27dp"
+                        android:layout_marginTop="53dp"
+                        android:text="Button"
+                        android:nextFocusDown="@+id/edit_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/change_icon" />
+
                     <AutoCompleteTextView
                         android:id="@+id/Edit_change_city"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="48dp"
-                        android:layout_marginStart="48dp"
-                        android:backgroundTint="#ff000000"
+                        android:layout_marginEnd="151dp"
+                        android:layout_marginStart="152dp"
+                        android:background="#eee"
+                        android:paddingLeft="8sp"
+                        android:paddingRight="8sp"
+                        android:focusable="true"
+                        android:backgroundTint="@null"
                         android:fontFamily="sans-serif-condensed"
-                        android:textAlignment="viewStart"
-                        android:textColor="#fff"
+                        android:text="asdasdasdas"
+                        android:textAlignment="center"
+                        android:textColor="#333"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/current_city"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/current_city" />
+                        app:layout_constraintTop_toTopOf="@+id/current_city"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
                         android:id="@+id/current_country"
