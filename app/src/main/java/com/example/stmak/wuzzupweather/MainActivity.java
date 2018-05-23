@@ -7,14 +7,18 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.Layout;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,8 +42,10 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // set background/icon/colorText from time
@@ -53,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
     // Change City
     private ImageView changeIcon;
     private AutoCompleteTextView changeCityEdit;
-    private EditText ed;
+    private TextView currentCity;
+    private Button buttonAccept;
+    private String[] Cities;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -124,31 +134,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        Cities = getResources().getStringArray(R.array.city_array);
         changeCityEdit = (AutoCompleteTextView)findViewById(R.id.Edit_change_city);
+
+        List<String> cityList = Arrays.asList(Cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line, cityList);
+        changeCityEdit.setAdapter(adapter);
+
+        currentCity = (TextView)findViewById(R.id.current_city);
         changeIcon = (ImageView) findViewById(R.id.change_icon);
-        ed = (EditText) findViewById(R.id.edit_text);
         changeIcon.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(ed, InputMethodManager.SHOW_IMPLICIT);
+                        currentCity.setVisibility(View.INVISIBLE);
+                        changeCityEdit.setVisibility(View.VISIBLE);
+                        changeCityEdit.requestFocus();
+                        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
                     }
                 }
         );
 
-        Button bt = (Button) findViewById(R.id.button);
-        bt.setOnClickListener(
-                new View.OnClickListener() {
+        changeCityEdit.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(ed, InputMethodManager.SHOW_IMPLICIT);
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        currentTemperatureField.setText("228");
+                        changeCityEdit.clearFocus();
                     }
                 }
         );
+
     }
+//
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            changeCityEdit.setText("Fuck");
+//            return false;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     public void changeCity(String city){
         // start animation
