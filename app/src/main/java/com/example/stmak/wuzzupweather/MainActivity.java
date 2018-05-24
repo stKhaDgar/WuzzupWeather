@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -160,23 +161,38 @@ public class MainActivity extends AppCompatActivity {
                         currentTemperatureField.setVisibility(View.INVISIBLE);
                         text_gradus.setVisibility(View.INVISIBLE);
                         changeCityEdit.requestFocus();
+                        changeIcon.setClickable(false);
                         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
                     }
                 }
         );
 
-
-        /* TODO: Если введено нормальное название города Аццепт вешает на себя не кликабель и делает всё визибл
-           TODO: иначе фокус кидается на editText и юзверь продолжает вводить правильное название */
+        
         buttonAccept.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        buttonAccept.requestFocus();
-                        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.toggleSoftInputFromWindow(buttonAccept.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-                        buttonAccept.clearFocus();
+                        String city = changeCityEdit.getText().toString();
+                        if(checkCity(city)){
+                            View view = MainActivity.this.getCurrentFocus();
+                            if (view != null) {
+                                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            }
+                            changeIcon.setClickable(true);
+                            buttonAccept.setVisibility(View.INVISIBLE);
+                            changeCityEdit.setVisibility(View.INVISIBLE);
+                            currentCity.setVisibility(View.VISIBLE);
+                            currentCountryField.setVisibility(View.VISIBLE);
+                            currentTemperatureField.setVisibility(View.VISIBLE);
+                            text_gradus.setVisibility(View.VISIBLE);
+                            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+                        }
+                        else{
+                            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
+                        }
+
                     }
                 }
         );
@@ -184,15 +200,25 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            changeIcon.setClickable(true);
             buttonAccept.setVisibility(View.INVISIBLE);
             changeCityEdit.setVisibility(View.INVISIBLE);
             currentCity.setVisibility(View.VISIBLE);
             currentCountryField.setVisibility(View.VISIBLE);
             currentTemperatureField.setVisibility(View.VISIBLE);
             text_gradus.setVisibility(View.VISIBLE);
+            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean checkCity (String city){
+        for(int i=0; i<Cities.length; i++){
+            if(Cities[i].equals(city))
+                return true;
+        }
+        return false;
     }
 
     public void changeCity(String city){

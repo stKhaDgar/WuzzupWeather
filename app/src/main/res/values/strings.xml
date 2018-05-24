@@ -3,7 +3,6 @@
 
     <!-- CITIES -->
     <string-array name="city_array">
-        <item>Dnipro</item>
         <item>Dnipropetrovsk</item>
         <item>London</item>
         <item>Berdyansk</item>
