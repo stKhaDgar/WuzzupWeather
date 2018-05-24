@@ -88,12 +88,18 @@ public class MainActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
         currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
+
+        changesFromCurrentTime(currentTime);
+        changeCity("Dnipropetrovsk");
+        setArrayToListFromFirebase();
+    }
+
+    // Change from time
+    public void changesFromCurrentTime(int currentTime){
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
         loadBar = (ProgressBar)findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
-
-        // Change from time
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
@@ -115,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
             text_night.setText("Now");
             text_night.setTextColor(Color.parseColor("#b056b8"));
         }
-
-        changeCity("Dnipropetrovsk");
     }
 
     public void addListener(){
@@ -137,10 +141,7 @@ public class MainActivity extends AppCompatActivity {
         text_gradus = (TextView)findViewById(R.id.text_gradus);
         buttonAccept = (Button)findViewById(R.id.button_accept_change);
 
-        List<String> cityList = Arrays.asList(Cities);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_dropdown_item_1line, cityList);
-        changeCityEdit.setAdapter(adapter);
+
 
         currentCity = (TextView)findViewById(R.id.current_city);
         changeIcon = (ImageView) findViewById(R.id.change_icon);
@@ -163,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
 
         changeCityEdit.addTextChangedListener(
                 new TextWatcher() {
@@ -221,7 +220,10 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: finish this function
     public void setArrayToListFromFirebase() {
-
+        List<String> cityList = Arrays.asList(Cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line, cityList);
+        changeCityEdit.setAdapter(adapter);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -241,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
     // TODO: DO something with that функция чтобы проверять города по firebase, а не по той залупе что ты написал
     public boolean checkCity (String city){
