@@ -34,34 +34,132 @@
         <item>Berlin</item>
         <item>Tokyo</item>
         <item>Mexico City</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
-        <item>Berlin</item>
+        <item>Buenos Aires</item>
+        <item>St. Petersburg</item>
+        <item>Seoul</item>
+        <item>Athens</item>
+        <item>Jerusalem</item>
+        <item>Seattle</item>
+        <item>Delhi</item>
+        <item>Sydney</item>
+        <item>Mumbai</item>
+        <item>Munich</item>
+        <item>Venice</item>
+        <item>Florence</item>
+        <item>Beijing</item>
+        <item>Cape Town</item>
+        <item>Washington D.C.</item>
+        <item>Montreal</item>
+        <item>Atlanta</item>
+        <item>Boston</item>
+        <item>Philadelphia</item>
+        <item>Chicago</item>
+        <item>San Diego</item>
+        <item>Stockholm</item>
+        <item>Cancún</item>
+        <item>Warsaw</item>
+        <item>Sharm el-Sheikh</item>
+        <item>Dallas</item>
+        <item>Hồ Chí Minh</item>
+        <item>Milan</item>
+        <item>Oslo</item>
+        <item>Libson</item>
+        <item>Punta Cana</item>
+        <item>Johannesburg</item>
+        <item>Antalya</item>
+        <item>Mecca</item>
+        <item>Macau</item>
+        <item>Pattaya</item>
+        <item>Guangzhou</item>
+        <item>Kiev</item>
+        <item>Shenzhen</item>
+        <item>Bucharest</item>
+        <item>Taipei</item>
+        <item>Orlando</item>
+        <item>Brussels</item>
+        <item>Chennai</item>
+        <item>Marrakesh</item>
+        <item>Phuket</item>
+        <item>Edirne</item>
+        <item>Bali</item>
+        <item>Copenhagen</item>
+        <item>São Paulo</item>
+        <item>Agra</item>
+        <item>Varna</item>
+        <item>Riyadh</item>
+        <item>Jakarta</item>
+        <item>Auckland</item>
+        <item>Honolulu</item>
+        <item>Edinburgh</item>
+        <item>Wellington</item>
+        <item>New Orleans</item>
+        <item>Petra</item>
+        <item>Melbourne</item>
+        <item>Luxor</item>
+        <item>Hà Nội</item>
+        <item>Manila</item>
+        <item>Houston</item>
+        <item>Phnom Penh</item>
+        <item>Zürich</item>
+        <item>Lima</item>
+        <item>Santiago</item>
+        <item>Bogotá</item>
+        <item>Kharkiv</item>
+        <item>Zaporizhia</item>
+        <item>Lviv</item>
+        <item>Kryvyi Rih</item>
+        <item>Mykolaiv</item>
+        <item>Mariupol</item>
+        <item>Makiivka</item>
+        <item>Luhansk</item>
+        <item>Vinnytsia</item>
+        <item>Simferopol</item>
+        <item>Sevastopol</item>
+        <item>Kherson</item>
+        <item>Poltava</item>
+        <item>Chernihiv</item>
+        <item>Cherkasy</item>
+        <item>Sumy</item>
+        <item>Horlivka</item>
+        <item>Zhytomyr</item>
+        <item>Kamianske</item>
+        <item>Kropyvnytskyi</item>
+        <item>Khmelnytskyi</item>
+        <item>Rivne</item>
+        <item>Chernivtsi</item>
+        <item>Kremenchuk</item>
+        <item>Ternopil</item>
+        <item>Ivano-Frankivsk</item>
+        <item>Lutsk</item>
+        <item>Bila Tserkva</item>
+        <item>Kramatorsk</item>
+        <item>Melitopol</item>
+        <item>Kerch</item>
+        <item>Nikopol</item>
+        <item>Sloviansk</item>
+        <item>Berdiansk</item>
+        <item>Sieverodonetsk</item>
+        <item>Alchevsk</item>
+        <item>Pavlohrad</item>
+        <item>Uzhhorod</item>
+        <item>Lysychansk</item>
+        <item>Yevpatoria</item>
+        <item>Yenakiieve</item>
+        <item>Kamianets-Podilskyi</item>
+        <item>Kostiantynivka</item>
+        <item>Krasnyi Luch</item>
+        <item>Oleksandriia</item>
+        <item>Konotop</item>
+        <item>Stakhanov</item>
+        <item>Uman</item>
+        <item>Berdychiv</item>
+        <item>Shostka</item>
+        <item>Brovary</item>
+        <item>Izmail</item>
+        <item>Bakhmut</item>
+        <item>Yalta</item>
+        <item>Sverdlovsk</item>
+        <item>Novomoskovsk</item>
 
     </string-array>
 </resources>
