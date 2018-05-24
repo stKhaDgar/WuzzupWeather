@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     // Change City
     private ImageView changeIcon;
     private AutoCompleteTextView changeCityEdit;
-    private TextView currentCity;
+    private TextView currentCity, errorText;
     private Button buttonAccept;
     private String[] Cities;
 
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Change city
         Cities = getResources().getStringArray(R.array.city_array);
+        errorText = (TextView) findViewById(R.id.text_error);
         changeCityEdit = (AutoCompleteTextView)findViewById(R.id.Edit_change_city);
         text_gradus = (TextView)findViewById(R.id.text_gradus);
         buttonAccept = (Button)findViewById(R.id.button_accept_change);
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        changeCityEdit.setText(((TextView) findViewById(R.id.current_city)).getText().toString());
                         buttonAccept.setVisibility(View.VISIBLE);
                         changeCityEdit.setVisibility(View.VISIBLE);
                         currentCity.setVisibility(View.INVISIBLE);
@@ -168,7 +170,26 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        
+        changeCityEdit.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        errorText.setVisibility(View.INVISIBLE);
+                        changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                }
+        );
+
         buttonAccept.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -183,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             changeIcon.setClickable(true);
                             buttonAccept.setVisibility(View.INVISIBLE);
                             changeCityEdit.setVisibility(View.INVISIBLE);
+                            errorText.setVisibility(View.INVISIBLE);
                             currentCity.setVisibility(View.VISIBLE);
                             currentCountryField.setVisibility(View.VISIBLE);
                             currentTemperatureField.setVisibility(View.VISIBLE);
@@ -190,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
                         }
                         else{
+                            errorText.setVisibility(View.VISIBLE);
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
                         }
 
@@ -207,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
             currentCountryField.setVisibility(View.VISIBLE);
             currentTemperatureField.setVisibility(View.VISIBLE);
             text_gradus.setVisibility(View.VISIBLE);
+            errorText.setVisibility(View.INVISIBLE);
             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
             return false;
         }

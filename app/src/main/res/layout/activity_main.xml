@@ -105,13 +105,27 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/text_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="42dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Введите существующий город"
+                        android:textAllCaps="true"
+                        android:textColor="#ef3232"
+                        android:visibility="invisible"
+                        app:layout_constraintStart_toStartOf="@+id/Edit_change_city"
+                        app:layout_constraintTop_toTopOf="@+id/Edit_change_city" />
+
                     <Button
                         android:id="@+id/button_accept_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="139dp"
                         android:layout_marginStart="135dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="Accept"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
