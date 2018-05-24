@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -87,11 +89,10 @@ public class MainActivity extends AppCompatActivity {
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
+        currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- TODO: CHANGE IT
 
         changesFromCurrentTime(currentTime);
         changeCity("Dnipropetrovsk");
-        setArrayToListFromFirebase();
     }
 
     // Change from time
@@ -141,7 +142,10 @@ public class MainActivity extends AppCompatActivity {
         text_gradus = (TextView)findViewById(R.id.text_gradus);
         buttonAccept = (Button)findViewById(R.id.button_accept_change);
 
-
+        List<String> cityList = Arrays.asList(getResources().getStringArray(R.array.city_array));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line, cityList);
+        changeCityEdit.setAdapter(adapter);
 
         currentCity = (TextView)findViewById(R.id.current_city);
         changeIcon = (ImageView) findViewById(R.id.change_icon);
@@ -218,14 +222,6 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    // TODO: finish this function
-    public void setArrayToListFromFirebase() {
-        List<String> cityList = Arrays.asList(Cities);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_dropdown_item_1line, cityList);
-        changeCityEdit.setAdapter(adapter);
-    }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             changeIcon.clearAnimation();
@@ -244,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    // TODO: DO something with that функция чтобы проверять города по firebase, а не по той залупе что ты написал
+    // TODO: DO something with that функция чтобы проверять города по dataBase
     public boolean checkCity (String city){
         for(int i=0; i<Cities.length; i++){
             if(Cities[i].equals(city))
