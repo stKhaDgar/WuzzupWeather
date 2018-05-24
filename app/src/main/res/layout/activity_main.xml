@@ -90,6 +90,7 @@
                         android:layout_marginTop="62dp"
                         android:backgroundTint="#aa333333"
                         android:focusable="true"
+                        android:selectAllOnFocus="true"
                         android:fontFamily="sans-serif-condensed"
                         android:inputType="textAutoComplete"
                         android:maxLength="20"

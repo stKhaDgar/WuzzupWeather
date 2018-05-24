@@ -1,26 +1,15 @@
 package com.example.stmak.wuzzupweather;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
-import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
-import android.text.Layout;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -28,24 +17,16 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCityField;
     private TextView currentCountryField;
+    private Animation animationRotationCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         text_gradus.setVisibility(View.INVISIBLE);
                         changeCityEdit.requestFocus();
                         changeIcon.setClickable(false);
+                        changeIcon.startAnimation(animationRotationCenter);
                         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
                     }
@@ -202,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                             }
                             changeIcon.setClickable(true);
+                            changeIcon.clearAnimation();
                             buttonAccept.setVisibility(View.INVISIBLE);
                             changeCityEdit.setVisibility(View.INVISIBLE);
                             errorText.setVisibility(View.INVISIBLE);
@@ -223,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            changeIcon.clearAnimation();
             changeIcon.setClickable(true);
             buttonAccept.setVisibility(View.INVISIBLE);
             changeCityEdit.setVisibility(View.INVISIBLE);
@@ -232,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
             text_gradus.setVisibility(View.VISIBLE);
             errorText.setVisibility(View.INVISIBLE);
             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+
             return false;
         }
         return super.onKeyDown(keyCode, event);
@@ -247,7 +233,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeCity(String city){
         // start animation
-        final Animation animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
+        animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
+
         changeIcon = (ImageView)findViewById(R.id.change_icon);
         changeIcon.startAnimation(animationRotationCenter);
         changeIcon.setClickable(false);
