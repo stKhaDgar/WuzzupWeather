@@ -164,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+
+
         changeCityEdit.addTextChangedListener(
                 new TextWatcher() {
                     @Override
@@ -215,6 +217,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    // TODO: finish this function
+    public void setArrayToListFromFirebase() {
+
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
