@@ -22,6 +22,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView text_gradus;
     private TextView text_night;
     private int currentTime;
-
     private ImageView arrowBack;
+    private ProgressBar loadBar;
 
     // Change City
     private ImageView changeIcon;
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- CHANGE IT
         mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
         iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
+        loadBar = (ProgressBar)findViewById(R.id.load);
+        loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         // Change from time
         if(currentTime >= 5 && currentTime < 12){
@@ -185,15 +188,16 @@ public class MainActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                             }
                             changeIcon.setClickable(true);
-                            changeIcon.clearAnimation();
                             buttonAccept.setVisibility(View.INVISIBLE);
                             changeCityEdit.setVisibility(View.INVISIBLE);
                             errorText.setVisibility(View.INVISIBLE);
                             currentCity.setVisibility(View.VISIBLE);
-                            currentCountryField.setVisibility(View.VISIBLE);
-                            currentTemperatureField.setVisibility(View.VISIBLE);
-                            text_gradus.setVisibility(View.VISIBLE);
+                            currentCity.setText(changeCityEdit.getText().toString());
+
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+                            loadBar.setVisibility(View.VISIBLE);
+                            // Change
+                            changeCity(changeCityEdit.getText().toString());
                         }
                         else{
                             errorText.setVisibility(View.VISIBLE);
@@ -250,6 +254,10 @@ public class MainActivity extends AppCompatActivity {
                 currentCountryField.setText(country);
                 changeIcon.clearAnimation();
                 changeIcon.setClickable(true);
+                currentCountryField.setVisibility(View.VISIBLE);
+                currentTemperatureField.setVisibility(View.VISIBLE);
+                text_gradus.setVisibility(View.VISIBLE);
+                loadBar.setVisibility(View.INVISIBLE);
             }
         });
 

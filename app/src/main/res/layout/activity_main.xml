@@ -142,10 +142,26 @@
                         android:text="Country"
                         android:textAllCaps="true"
                         android:textColor="#D9ffffff"
+                        android:visibility="invisible"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="@+id/current_city"
                         app:layout_constraintStart_toStartOf="@+id/current_city"
                         app:layout_constraintTop_toBottomOf="@+id/current_city" />
+
+                    <ProgressBar
+                        android:id="@+id/load"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/current_temperature"
+                        app:layout_constraintEnd_toStartOf="@+id/text_gradus"
+                        app:layout_constraintStart_toStartOf="@+id/current_temperature"
+                        app:layout_constraintTop_toTopOf="@+id/current_temperature"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/current_temperature"
@@ -156,6 +172,7 @@
                         android:layout_marginTop="200dp"
                         android:fontFamily="sans-serif-condensed"
                         android:text="00"
+                        android:visibility="invisible"
                         android:textAlignment="center"
                         android:textColor="#fff"
                         android:textSize="100sp"
@@ -169,6 +186,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:text="°"
+                        android:visibility="invisible"
                         android:textColor="#fff"
                         android:textSize="100sp"
                         app:layout_constraintBottom_toBottomOf="@+id/current_temperature"

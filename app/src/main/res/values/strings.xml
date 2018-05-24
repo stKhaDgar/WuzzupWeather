@@ -4,10 +4,64 @@
     <!-- CITIES -->
     <string-array name="city_array">
         <item>Dnipropetrovsk</item>
+        <item>Paris</item>
         <item>London</item>
-        <item>Berdyansk</item>
-        <item>Odessa</item>
-        <item>Kiev</item>
-        <item>Lviv</item>
+        <item>Bangkok</item>
+        <item>Singapore</item>
+        <item>New York</item>
+        <item>Kuala Lumpur</item>
+        <item>Hong Kong</item>
+        <item>Dubai</item>
+        <item>Istanbul</item>
+        <item>Rome</item>
+        <item>Shanghai</item>
+        <item>Los Angeles</item>
+        <item>Las Vegas</item>
+        <item>Miami</item>
+        <item>Toronto</item>
+        <item>Barcelona</item>
+        <item>Dublin</item>
+        <item>Amsterdam</item>
+        <item>Moscow</item>
+        <item>Cairo</item>
+        <item>Prague</item>
+        <item>Vienna</item>
+        <item>Madrid</item>
+        <item>San Francisco</item>
+        <item>Vancouver</item>
+        <item>Budapest</item>
+        <item>Rio de Janeiro</item>
+        <item>Berlin</item>
+        <item>Tokyo</item>
+        <item>Mexico City</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+        <item>Berlin</item>
+
     </string-array>
 </resources>
