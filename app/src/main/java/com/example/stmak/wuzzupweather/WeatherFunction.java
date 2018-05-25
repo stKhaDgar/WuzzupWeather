@@ -1,5 +1,6 @@
 package com.example.stmak.wuzzupweather;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,14 +15,14 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class WeatherFunction {
+class WeatherFunction {
 
     private static final String OPEN_WEATHER_MAP_URL =
             "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+    static String setWeatherIcon(int actualId, long sunrise, long sunset){
         int id = actualId / 100;
         String icon = "";
         if(actualId == 800){
@@ -57,9 +58,9 @@ public class WeatherFunction {
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
 
-        public AsyncResponse delegate = null;//Call back interface
+        AsyncResponse delegate = null;//Call back interface
 
-        public placeIdTask(AsyncResponse asyncResponse) {
+        placeIdTask(AsyncResponse asyncResponse) {
             delegate = asyncResponse;//Assigning call back interface through constructor
         }
 
@@ -86,7 +87,7 @@ public class WeatherFunction {
                     String city = json.getString("name"); //+ ", " + json.getJSONObject("sys").getString("country");
                     String country = json.getJSONObject("sys").getString("country");
                     String description = details.getString("description").toUpperCase(Locale.US);
-                    String temperature = String.format("%.0f", main.getDouble("temp"));
+                    @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getDouble("temp"));
                     String humidity = main.getString("humidity") + "%";
                     String pressure = main.getString("pressure") + " hPa";
                     String updatedOn = df.format(new Date(json.getLong("dt")*1000));
@@ -103,7 +104,7 @@ public class WeatherFunction {
         }
     }
 
-    public static JSONObject getWeatherJSON(String city){
+    static JSONObject getWeatherJSON(String city){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, city));
             HttpURLConnection connection =

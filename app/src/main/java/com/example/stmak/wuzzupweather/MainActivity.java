@@ -1,6 +1,6 @@
 package com.example.stmak.wuzzupweather;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(size);
         int screenHigh = size.y;
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layout1);
+        LinearLayout layout = findViewById(R.id.layout1);
 
         ViewGroup.LayoutParams params = layout.getLayoutParams();
 
@@ -78,46 +77,45 @@ public class MainActivity extends AppCompatActivity {
 
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        int currentTime = 13;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeformat = new SimpleDateFormat("HH");
+        int currentTime = 13;  // TODO: change it
 
         changesFromCurrentTime(currentTime);
 
         loadText();
     }
 
-
     // Change from time
     public void changesFromCurrentTime(int currentTime){
-        ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.main_layout);
-        ImageView iconDayTaime = (ImageView) findViewById(R.id.icon_day_time);
-        loadBar = (ProgressBar)findViewById(R.id.load);
+        ConstraintLayout mainLayout = findViewById(R.id.main_layout);
+        ImageView iconDayTaime = findViewById(R.id.icon_day_time);
+        loadBar = findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
-            TextView text_morning = (TextView) findViewById(R.id.text_weather_morning);
+            TextView text_morning = findViewById(R.id.text_weather_morning);
             text_morning.setText(R.string.now_weather);
             text_morning.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
-            TextView text_day = (TextView) findViewById(R.id.text_weather_day);
+            TextView text_day = findViewById(R.id.text_weather_day);
             text_day.setText(R.string.now_weather);
             text_day.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
-            TextView text_night = (TextView) findViewById(R.id.text_weather_night);
+            TextView text_night = findViewById(R.id.text_weather_night);
             text_night.setText(R.string.now_weather);
             text_night.setTextColor(Color.parseColor("#b056b8"));
         }
     }
 
     public void addListener(){
-        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back_icon);
+        ImageView arrowBack = findViewById(R.id.arrow_back_icon);
         arrowBack.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -129,18 +127,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Change city
         Cities = getResources().getStringArray(R.array.city_array);
-        errorText = (TextView) findViewById(R.id.text_error);
-        changeCityEdit = (AutoCompleteTextView)findViewById(R.id.Edit_change_city);
-        text_gradus = (TextView)findViewById(R.id.text_gradus);
-        buttonAccept = (Button)findViewById(R.id.button_accept_change);
+        errorText = findViewById(R.id.text_error);
+        changeCityEdit = findViewById(R.id.Edit_change_city);
+        text_gradus = findViewById(R.id.text_gradus);
+        buttonAccept = findViewById(R.id.button_accept_change);
 
         List<String> cityList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.city_array)));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, cityList);
         changeCityEdit.setAdapter(adapter);
 
-        currentCity = (TextView)findViewById(R.id.current_city);
-        changeIcon = (ImageView) findViewById(R.id.change_icon);
+        currentCity = findViewById(R.id.current_city);
+        changeIcon = findViewById(R.id.change_icon);
         changeIcon.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -225,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT, changeCityEdit.getText().toString());
-        ed.commit();
+        ed.apply();
     }
 
     private void loadText() {
@@ -260,8 +258,8 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: DO something with that функция чтобы проверять города по dataBase
     public boolean checkCity (String city){
-        for(int i=0; i<Cities.length; i++){
-            if(Cities[i].equals(city))
+        for (String City : Cities) {
+            if (City.equals(city))
                 return true;
         }
         return false;
@@ -271,13 +269,13 @@ public class MainActivity extends AppCompatActivity {
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
 
-        changeIcon = (ImageView)findViewById(R.id.change_icon);
+        changeIcon = findViewById(R.id.change_icon);
         changeIcon.startAnimation(animationRotationCenter);
         changeIcon.setClickable(false);
 
-        currentTemperatureField = (TextView)findViewById(R.id.current_temperature);
-        currentCityField = (TextView)findViewById(R.id.current_city);
-        currentCountryField = (TextView)findViewById(R.id.current_country);
+        currentTemperatureField = findViewById(R.id.current_temperature);
+        currentCityField = findViewById(R.id.current_city);
+        currentCountryField = findViewById(R.id.current_country);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String weather_temperature, String city, String country) {
