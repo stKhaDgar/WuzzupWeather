@@ -236,8 +236,10 @@ public class MainActivity extends AppCompatActivity {
         String savedText = sPref.getString(SAVED_TEXT, "");
         if(savedText.length() == 0){
             changeCity("Kiev");
+            currentCity.setText("Kiev");
         } else {
             changeCity(savedText);
+            currentCity.setText(savedText);
         }
     }
 
