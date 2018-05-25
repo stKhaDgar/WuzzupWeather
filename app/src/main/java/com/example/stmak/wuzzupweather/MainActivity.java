@@ -1,16 +1,16 @@
 package com.example.stmak.wuzzupweather;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentCountryField;
     private Animation animationRotationCenter;
 
+    // Save last city
+    final String SAVED_TEXT = "Kiev";
+    SharedPreferences sPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
         currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- TODO: CHANGE IT
 
         changesFromCurrentTime(currentTime);
-        changeCity("Dnipropetrovsk");
+
+        loadText();
     }
+
 
     // Change from time
     public void changesFromCurrentTime(int currentTime){
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         text_gradus = (TextView)findViewById(R.id.text_gradus);
         buttonAccept = (Button)findViewById(R.id.button_accept_change);
 
-        List<String> cityList = Arrays.asList(getResources().getStringArray(R.array.city_array));
+        List<String> cityList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.city_array)));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, cityList);
         changeCityEdit.setAdapter(adapter);
@@ -207,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
                             currentCity.setVisibility(View.VISIBLE);
                             currentCity.setText(changeCityEdit.getText().toString());
 
+                            saveText();
+
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
                             loadBar.setVisibility(View.VISIBLE);
                             // Change
@@ -220,6 +222,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void saveText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString());
+        ed.commit();
+    }
+
+    private void loadText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        String savedText = sPref.getString(SAVED_TEXT, "");
+        if(savedText.length() == 0){
+            changeCity("Kiev");
+        } else {
+            changeCity(savedText);
+        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
