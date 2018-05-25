@@ -70,16 +70,13 @@ public class MainActivity extends AppCompatActivity {
         int screenHigh = size.y;
 
         LinearLayout layout = findViewById(R.id.layout1);
-
         ViewGroup.LayoutParams params = layout.getLayoutParams();
-
         params.height = screenHigh;
 
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        int currentTime = 13;  // TODO: change it
-
+        int currentTime = Integer.parseInt(timeformat.format(c.getTime()));
         changesFromCurrentTime(currentTime);
 
         loadText();
