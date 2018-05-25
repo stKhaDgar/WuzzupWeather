@@ -48,10 +48,10 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="6dp"
                         android:layout_marginTop="12dp"
-                        android:clickable="true"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/arrow_back" />
+                        app:srcCompat="@drawable/arrow_back"
+                        android:contentDescription="@string/arrow_back" />
 
                     <ImageView
                         android:id="@+id/change_icon"
@@ -61,7 +61,8 @@
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/change_icon" />
+                        app:srcCompat="@drawable/change_icon"
+                        android:contentDescription="@string/change_icon" />
 
                     <TextView
                         android:id="@+id/current_city"
@@ -71,7 +72,7 @@
                         android:layout_marginStart="151dp"
                         android:layout_marginTop="72dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="City"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#fff"
                         android:textSize="22sp"
@@ -103,7 +104,8 @@
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="LabelFor" />
 
                     <TextView
                         android:id="@+id/text_error"
@@ -112,7 +114,7 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="42dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Введите существующий город"
+                        android:text="@string/error_txt"
                         android:textAllCaps="true"
                         android:textColor="#ef3232"
                         android:visibility="invisible"
@@ -126,7 +128,7 @@
                         android:layout_marginEnd="139dp"
                         android:layout_marginStart="135dp"
                         android:layout_marginTop="24dp"
-                        android:text="Accept"
+                        android:text="@string/button_accept"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
-                        android:text="Country"
+                        android:text=""
                         android:textAllCaps="true"
                         android:textColor="#D9ffffff"
                         android:visibility="invisible"
@@ -170,7 +172,7 @@
                         android:layout_marginStart="142dp"
                         android:layout_marginTop="200dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="00"
+                        android:text=""
                         android:visibility="invisible"
                         android:textAlignment="center"
                         android:textColor="#fff"
@@ -184,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="°"
+                        android:text="@string/temperature_gradus"
                         android:visibility="invisible"
                         android:textColor="#fff"
                         android:textSize="100sp"
@@ -200,7 +202,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:contentDescription="@string/icon_day_time" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -215,8 +218,6 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
                     android:visibility="visible"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="333dp">
@@ -245,7 +246,7 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="24sp"
-                            android:text="TextView"
+                            android:text="@string/morning_weather"
                             android:textColor="#b9b9b9" />
 
                         <TextView
@@ -257,7 +258,7 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="16sp"
-                            android:text="TextView"
+                            android:text="@string/day_weather"
                             android:textColor="#b9b9b9" />
 
                         <TextView
@@ -269,7 +270,7 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="16sp"
-                            android:text="TextView"
+                            android:text="@string/night_weather"
                             android:textColor="#b9b9b9" />
 
                     </LinearLayout>

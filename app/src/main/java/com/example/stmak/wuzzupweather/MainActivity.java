@@ -35,15 +35,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    // set background/icon/colorText from time
-    private ConstraintLayout mainLayout;
-    private ImageView iconDayTaime;
-    private TextView text_morning;
-    private TextView text_day;
     private TextView text_gradus;
-    private TextView text_night;
-    private int currentTime;
-    private ImageView arrowBack;
     private ProgressBar loadBar;
 
     // Change City
@@ -87,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
         SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        currentTime = 13; //Integer.parseInt(timeformat.format(c.getTime())); //    <---- TODO: CHANGE IT
+        int currentTime = 13;
 
         changesFromCurrentTime(currentTime);
 
@@ -97,35 +89,35 @@ public class MainActivity extends AppCompatActivity {
 
     // Change from time
     public void changesFromCurrentTime(int currentTime){
-        mainLayout = (ConstraintLayout)findViewById(R.id.main_layout);
-        iconDayTaime = (ImageView)findViewById(R.id.icon_day_time);
+        ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.main_layout);
+        ImageView iconDayTaime = (ImageView) findViewById(R.id.icon_day_time);
         loadBar = (ProgressBar)findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
-            text_morning = (TextView) findViewById(R.id.text_weather_morning);
-            text_morning.setText("Now");
+            TextView text_morning = (TextView) findViewById(R.id.text_weather_morning);
+            text_morning.setText(R.string.now_weather);
             text_morning.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
-            text_day = (TextView) findViewById(R.id.text_weather_day);
-            text_day.setText("Now");
+            TextView text_day = (TextView) findViewById(R.id.text_weather_day);
+            text_day.setText(R.string.now_weather);
             text_day.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
-            text_night = (TextView) findViewById(R.id.text_weather_night);
-            text_night.setText("Now");
+            TextView text_night = (TextView) findViewById(R.id.text_weather_night);
+            text_night.setText(R.string.now_weather);
             text_night.setTextColor(Color.parseColor("#b056b8"));
         }
     }
 
     public void addListener(){
-        arrowBack = (ImageView) findViewById(R.id.arrow_back_icon);
+        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back_icon);
         arrowBack.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -163,8 +155,11 @@ public class MainActivity extends AppCompatActivity {
                         changeCityEdit.requestFocus();
                         changeIcon.setClickable(false);
                         changeIcon.startAnimation(animationRotationCenter);
+
                         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                        if (inputMethodManager != null) {
+                            inputMethodManager.toggleSoftInputFromWindow(changeCityEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                        }
                     }
                 }
         );
@@ -198,7 +193,9 @@ public class MainActivity extends AppCompatActivity {
                             View view = MainActivity.this.getCurrentFocus();
                             if (view != null) {
                                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                if (imm != null) {
+                                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                }
                             }
                             changeIcon.setClickable(true);
                             buttonAccept.setVisibility(View.INVISIBLE);
@@ -236,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         String savedText = sPref.getString(SAVED_TEXT, "");
         if(savedText.length() == 0){
             changeCity("Kiev");
-            currentCity.setText("Kiev");
+            currentCity.setText(R.string.default_city);
         } else {
             changeCity(savedText);
             currentCity.setText(savedText);

@@ -1,7 +1,21 @@
 <resources>
     <string name="app_name">Wuzzup Weather</string>
 
+    <!-- activity_main.xml -->
+    <string name="error_txt">Введите существующий город!</string>
+    <string name="button_accept">Изменить</string>
+    <string name="temperature_gradus">°</string>
+    <string name="morning_weather">Утром</string>
+    <string name="day_weather">Днём</string>
+    <string name="night_weather">Ночью</string>
+    <string name="now_weather">Сейчас</string>
+    <string name="arrow_back">Close app</string>
+    <string name="change_icon">Change city</string>
+    <string name="icon_day_time">Big icon in bottom screen</string>
+
+
     <!-- CITIES -->
+    <string name="default_city">Kiev</string>
     <string-array name="city_array">
         <item>Dnipropetrovsk</item>
         <item>Paris</item>
