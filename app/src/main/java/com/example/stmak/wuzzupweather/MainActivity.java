@@ -79,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
         int currentTime = Integer.parseInt(timeformat.format(c.getTime()));
         changesFromCurrentTime(currentTime);
 
-        loadText();
         setActiveACTextView(changeCityEdit, false);
+        changeCityEdit.clearFocus();
+        loadText();
     }
 
     // Change from time
@@ -222,10 +223,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
-            view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+            //view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
             view.setClickable(true);
+            view.setBackgroundDrawable(getDrawable(R.drawable.item_transparent_border_city));
             view.setEnabled(true);
             view.setCursorVisible(true);
+            view.setSelectAllOnFocus(true);
             //view.setFocusable(true);
             view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         }
@@ -234,8 +237,10 @@ public class MainActivity extends AppCompatActivity {
             view.setDropDownHeight(0);
             view.setEnabled(false);
             view.setCursorVisible(false);
+            view.setSelectAllOnFocus(false);
             // TODO: need to set transparent! hint
-            view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorTransparent));
+            view.setBackgroundColor(Color.TRANSPARENT);
+            //view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorTransparent));
         }
     }
 
