@@ -16,6 +16,7 @@
 
     <!-- CITIES -->
     <string name="default_city">Kiev</string>
+    <string name="default_country">UA</string>
     <string-array name="city_array">
         <item>Dnipropetrovsk</item>
         <item>Paris</item>

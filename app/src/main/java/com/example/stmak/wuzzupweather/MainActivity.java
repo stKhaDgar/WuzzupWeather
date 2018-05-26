@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private Animation animationRotationCenter;
 
     // Save last city
-    final String SAVED_TEXT = "Kiev";
-    SharedPreferences sPref;
+    final String SAVED_TEXT_CITY = "";
+    SharedPreferences sPrefCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,13 +236,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
-            //view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
             view.setClickable(true);
             view.setBackgroundDrawable(getDrawable(R.drawable.item_transparent_border_city));
             view.setEnabled(true);
             view.setCursorVisible(true);
             view.setSelectAllOnFocus(true);
-            //view.setFocusable(true);
             view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         }
         else {
@@ -251,33 +249,31 @@ public class MainActivity extends AppCompatActivity {
             view.setEnabled(false);
             view.setCursorVisible(false);
             view.setSelectAllOnFocus(false);
-            // TODO: need to set transparent! hint
             view.setBackgroundColor(Color.TRANSPARENT);
-            //view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorTransparent));
         }
     }
 
     private void saveText() {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString());
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPrefCity.edit();
+        ed.putString(SAVED_TEXT_CITY, changeCityEdit.getText().toString());
         ed.apply();
     }
 
     private void loadText() {
-        sPref = getPreferences(MODE_PRIVATE);
-        String savedText = sPref.getString(SAVED_TEXT, "");
-        if(savedText.length() == 0){
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        String savedTextCity= sPrefCity.getString(SAVED_TEXT_CITY, "");
+        if(savedTextCity.length() == 0){
             changeCity("Kiev");
             changeCityEdit.setText(R.string.default_city);
         } else {
-            changeCity(savedText);
-            changeCityEdit.setText(savedText);
+            changeCity(savedTextCity);
+            changeCityEdit.setText(savedTextCity);
         }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && !changeIcon.isClickable()) {
             changeIcon.clearAnimation();
             changeIcon.setClickable(true);
             buttonAccept.setVisibility(View.INVISIBLE);
