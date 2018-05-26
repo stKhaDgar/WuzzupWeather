@@ -183,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+
                         String city = changeCityEdit.getText().toString();
                         if(checkCity(city)){
                             View view = MainActivity.this.getCurrentFocus();
@@ -207,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
                             changeCity(changeCityEdit.getText().toString());
                         }
                         else{
+                            Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.error_et);
+                            changeCityEdit.startAnimation(anim);
                             errorText.setVisibility(View.VISIBLE);
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
                         }
@@ -266,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
 
-        changeIcon = findViewById(R.id.change_icon);
         changeIcon.startAnimation(animationRotationCenter);
         changeIcon.setClickable(false);
 
