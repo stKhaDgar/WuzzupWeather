@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             changeIcon.setClickable(true);
+                            changeIcon.clearAnimation();
                             buttonAccept.setVisibility(View.INVISIBLE);
 
                             // set noActive to changeCityEdit
@@ -305,9 +306,6 @@ public class MainActivity extends AppCompatActivity {
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
 
-        changeIcon.startAnimation(animationRotationCenter);
-        changeIcon.setClickable(false);
-
         currentTemperatureField = findViewById(R.id.current_temperature);
         currentCountryField = findViewById(R.id.current_country);
         WeatherFunction.placeIdTask asyncTask;
@@ -316,7 +314,6 @@ public class MainActivity extends AppCompatActivity {
                 currentTemperatureField.setText(weather_temperature);
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
-                changeIcon.clearAnimation();
                 changeIcon.setClickable(true);
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
