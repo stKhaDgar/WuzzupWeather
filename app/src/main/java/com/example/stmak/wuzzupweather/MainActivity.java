@@ -83,18 +83,17 @@ public class MainActivity extends AppCompatActivity {
         changeCityEdit.clearFocus();
         loadText();
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         animationsFromStart();
+
     }
 
     // Animations from start App
     public void animationsFromStart () {
         Animation animIconBack = AnimationUtils.loadAnimation(this, R.anim.slide_from_left_anim);
+        Animation animIconChange = AnimationUtils.loadAnimation(this, R.anim.slide_from_right_anim);
+
         findViewById(R.id.arrow_back_icon).startAnimation(animIconBack);
+        changeIcon.startAnimation(animIconChange);
     }
 
     // Change from time
