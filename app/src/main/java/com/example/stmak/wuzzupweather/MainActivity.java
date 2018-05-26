@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Animation animationRotationCenter;
 
     // Save last city
-    final String SAVED_TEXT_CITY = "";
+    final String SAVED_TEXT = "";
     SharedPreferences sPrefCity;
 
     @Override
@@ -256,19 +257,23 @@ public class MainActivity extends AppCompatActivity {
     private void saveText() {
         sPrefCity = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPrefCity.edit();
-        ed.putString(SAVED_TEXT_CITY, changeCityEdit.getText().toString());
+        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
         ed.apply();
     }
 
     private void loadText() {
         sPrefCity = getPreferences(MODE_PRIVATE);
-        String savedTextCity= sPrefCity.getString(SAVED_TEXT_CITY, "");
+        String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
         if(savedTextCity.length() == 0){
             changeCity("Kiev");
             changeCityEdit.setText(R.string.default_city);
+            currentCountryField.setText(R.string.default_country);
         } else {
-            changeCity(savedTextCity);
-            changeCityEdit.setText(savedTextCity);
+            String[] ct = savedTextCity.trim().split("[;]");
+
+            changeCity(ct[0]);
+            changeCityEdit.setText(ct[0]);
+            currentCountryField.setText(ct[1]);
         }
     }
 
