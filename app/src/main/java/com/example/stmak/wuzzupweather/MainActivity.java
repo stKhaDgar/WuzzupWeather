@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
     // Change City
     private ImageView changeIcon;
     private AutoCompleteTextView changeCityEdit;
-    private TextView currentCity, errorText;
+    private TextView errorText;
     private Button buttonAccept;
     private String[] Cities;
+    private String memberCity;
 
     // Weather members
     private TextView currentTemperatureField;
-    private TextView currentCityField;
     private TextView currentCountryField;
     private Animation animationRotationCenter;
 
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         changesFromCurrentTime(currentTime);
 
         loadText();
+        setActiveACTextView(changeCityEdit, false);
     }
 
     // Change from time
@@ -134,22 +135,23 @@ public class MainActivity extends AppCompatActivity {
                 this, android.R.layout.simple_dropdown_item_1line, cityList);
         changeCityEdit.setAdapter(adapter);
 
-        currentCity = findViewById(R.id.current_city);
         changeIcon = findViewById(R.id.change_icon);
         changeIcon.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        changeCityEdit.setText(((TextView) findViewById(R.id.current_city)).getText().toString());
+                        memberCity = changeCityEdit.getText().toString();
                         buttonAccept.setVisibility(View.VISIBLE);
-                        changeCityEdit.setVisibility(View.VISIBLE);
-                        currentCity.setVisibility(View.INVISIBLE);
                         currentCountryField.setVisibility(View.INVISIBLE);
                         currentTemperatureField.setVisibility(View.INVISIBLE);
                         text_gradus.setVisibility(View.INVISIBLE);
-                        changeCityEdit.requestFocus();
                         changeIcon.setClickable(false);
                         changeIcon.startAnimation(animationRotationCenter);
+
+                        setActiveACTextView(changeCityEdit, true);
+                        changeCityEdit.setSelectAllOnFocus(true);
+                        changeCityEdit.clearFocus();
+                        changeCityEdit.requestFocus();
 
                         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         if (inputMethodManager != null) {
@@ -183,8 +185,6 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
                         String city = changeCityEdit.getText().toString();
                         if(checkCity(city)){
                             View view = MainActivity.this.getCurrentFocus();
@@ -196,14 +196,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                             changeIcon.setClickable(true);
                             buttonAccept.setVisibility(View.INVISIBLE);
-                            changeCityEdit.setVisibility(View.INVISIBLE);
+
+                            // set noActive to changeCityEdit
+                            setActiveACTextView(changeCityEdit, false);
+
                             errorText.setVisibility(View.INVISIBLE);
-                            currentCity.setVisibility(View.VISIBLE);
-                            currentCity.setText(changeCityEdit.getText().toString());
 
                             saveText();
 
-                            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
                             loadBar.setVisibility(View.VISIBLE);
                             // Change
                             changeCity(changeCityEdit.getText().toString());
@@ -220,6 +220,24 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
+        if(bool) {
+            view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+            view.setClickable(true);
+            view.setEnabled(true);
+            view.setCursorVisible(true);
+            //view.setFocusable(true);
+            view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+        else {
+            view.setClickable(false);
+            view.setDropDownHeight(0);
+            view.setEnabled(false);
+            view.setCursorVisible(false);
+            view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorTransparent));
+        }
+    }
+
     private void saveText() {
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
@@ -232,10 +250,10 @@ public class MainActivity extends AppCompatActivity {
         String savedText = sPref.getString(SAVED_TEXT, "");
         if(savedText.length() == 0){
             changeCity("Kiev");
-            currentCity.setText(R.string.default_city);
+            changeCityEdit.setText(R.string.default_city);
         } else {
             changeCity(savedText);
-            currentCity.setText(savedText);
+            changeCityEdit.setText(savedText);
         }
     }
 
@@ -244,13 +262,12 @@ public class MainActivity extends AppCompatActivity {
             changeIcon.clearAnimation();
             changeIcon.setClickable(true);
             buttonAccept.setVisibility(View.INVISIBLE);
-            changeCityEdit.setVisibility(View.INVISIBLE);
-            currentCity.setVisibility(View.VISIBLE);
+            changeCityEdit.setText(memberCity);
+            setActiveACTextView(changeCityEdit, false);
             currentCountryField.setVisibility(View.VISIBLE);
             currentTemperatureField.setVisibility(View.VISIBLE);
             text_gradus.setVisibility(View.VISIBLE);
             errorText.setVisibility(View.INVISIBLE);
-            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
 
             return false;
         }
@@ -274,13 +291,12 @@ public class MainActivity extends AppCompatActivity {
         changeIcon.setClickable(false);
 
         currentTemperatureField = findViewById(R.id.current_temperature);
-        currentCityField = findViewById(R.id.current_city);
         currentCountryField = findViewById(R.id.current_country);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String weather_temperature, String city, String country) {
                 currentTemperatureField.setText(weather_temperature);
-                currentCityField.setText(city);
+                changeCityEdit.setText(city);
                 currentCountryField.setText(country);
                 changeIcon.clearAnimation();
                 changeIcon.setClickable(true);

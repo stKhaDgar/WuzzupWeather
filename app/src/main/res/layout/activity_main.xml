@@ -64,23 +64,6 @@
                         app:srcCompat="@drawable/change_icon"
                         android:contentDescription="@string/change_icon" />
 
-                    <TextView
-                        android:id="@+id/current_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="151dp"
-                        android:layout_marginStart="151dp"
-                        android:layout_marginTop="72dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text=""
-                        android:textAlignment="center"
-                        android:textColor="#fff"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <AutoCompleteTextView
                         android:id="@+id/Edit_change_city"
                         android:layout_width="match_parent"
@@ -88,7 +71,7 @@
                         android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="62dp"
-                        android:backgroundTint="#aa333333"
+                        android:backgroundTint="#00333333"
                         android:focusable="true"
                         android:selectAllOnFocus="true"
                         android:fontFamily="sans-serif-condensed"
@@ -101,7 +84,7 @@
                         android:textColor="#fff"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -132,7 +115,7 @@
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/current_city" />
+                        app:layout_constraintTop_toBottomOf="@+id/Edit_change_city" />
 
                     <TextView
                         android:id="@+id/current_country"
@@ -145,9 +128,9 @@
                         android:textColor="#D9ffffff"
                         android:visibility="invisible"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/current_city"
-                        app:layout_constraintStart_toStartOf="@+id/current_city"
-                        app:layout_constraintTop_toBottomOf="@+id/current_city" />
+                        app:layout_constraintEnd_toEndOf="@+id/Edit_change_city"
+                        app:layout_constraintStart_toStartOf="@+id/Edit_change_city"
+                        app:layout_constraintTop_toBottomOf="@+id/Edit_change_city" />
 
                     <ProgressBar
                         android:id="@+id/load"
