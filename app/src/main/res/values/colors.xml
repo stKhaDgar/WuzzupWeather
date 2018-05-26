@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorError">#ef3232</color>
     <color name="colorNormal">#aa333333</color>
-    <color name="colorTransparent">#00000000</color>
+    <color name="colorTransparent">#00ffffff</color>
 
 
 </resources>

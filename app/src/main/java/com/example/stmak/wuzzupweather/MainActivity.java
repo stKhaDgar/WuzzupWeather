@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
             view.setDropDownHeight(0);
             view.setEnabled(false);
             view.setCursorVisible(false);
+            // TODO: need to set transparent! hint
             view.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorTransparent));
         }
     }
