@@ -217,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
 
                             errorText.setVisibility(View.INVISIBLE);
 
-                            saveText();
 
                             loadBar.setVisibility(View.VISIBLE);
                             // Change
@@ -320,6 +319,8 @@ public class MainActivity extends AppCompatActivity {
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
                 loadBar.setVisibility(View.INVISIBLE);
+
+                saveText(); // TODO: check this 
             }
         });
 
