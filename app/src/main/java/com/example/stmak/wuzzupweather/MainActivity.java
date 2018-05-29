@@ -93,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
         Animation animIconBack = AnimationUtils.loadAnimation(this, R.anim.slide_from_left_anim);
         Animation animIconChange = AnimationUtils.loadAnimation(this, R.anim.slide_from_right_anim);
         Animation animCurrentCity = AnimationUtils.loadAnimation(this, R.anim.current_city_anim);
+        Animation animCurrentCountry = AnimationUtils.loadAnimation(this, R.anim.current_country_anim);
 
         findViewById(R.id.arrow_back_icon).startAnimation(animIconBack);
         changeIcon.startAnimation(animIconChange);
         changeCityEdit.startAnimation(animCurrentCity);
+        currentCountryField.startAnimation(animCurrentCountry);
     }
 
     // Change from time
