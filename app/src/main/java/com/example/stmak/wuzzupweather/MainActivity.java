@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                 text_gradus.setVisibility(View.VISIBLE);
                 loadBar.setVisibility(View.INVISIBLE);
 
-                saveText(); // TODO: check this 
+                saveText();
             }
         });
 
