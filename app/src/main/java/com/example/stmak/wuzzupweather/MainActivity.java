@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCountryField;
     private Animation animationRotationCenter;
+    private Animation animTemperature;
 
     // Save last city
     final String SAVED_TEXT = "";
@@ -309,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeCity(String city){
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
+        animTemperature = AnimationUtils.loadAnimation(this, R.anim.alpha_temperature_anim);
 
         currentTemperatureField = findViewById(R.id.current_temperature);
         currentCountryField = findViewById(R.id.current_country);
@@ -325,6 +327,9 @@ public class MainActivity extends AppCompatActivity {
                 loadBar.setVisibility(View.INVISIBLE);
 
                 saveText();
+
+                currentTemperatureField.startAnimation(animTemperature); text_gradus.startAnimation(animTemperature);
+
             }
         });
 
