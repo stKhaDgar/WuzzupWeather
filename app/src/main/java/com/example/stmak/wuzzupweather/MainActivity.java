@@ -49,8 +49,12 @@ public class MainActivity extends AppCompatActivity {
     // Weather members
     private TextView currentTemperatureField;
     private TextView currentCountryField;
+
+    // Animations
     private Animation animationRotationCenter;
     private Animation animTemperature;
+    private Animation animCurrentCountry;
+    private Animation animProgressBarStart;
 
     // Save last city
     final String SAVED_TEXT = "";
@@ -94,12 +98,14 @@ public class MainActivity extends AppCompatActivity {
         Animation animIconBack = AnimationUtils.loadAnimation(this, R.anim.slide_from_left_anim);
         Animation animIconChange = AnimationUtils.loadAnimation(this, R.anim.slide_from_right_anim);
         Animation animCurrentCity = AnimationUtils.loadAnimation(this, R.anim.current_city_anim);
-        Animation animCurrentCountry = AnimationUtils.loadAnimation(this, R.anim.current_country_anim);
+        animCurrentCountry = AnimationUtils.loadAnimation(this, R.anim.current_country_anim);
+        animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
 
         findViewById(R.id.arrow_back_icon).startAnimation(animIconBack);
         changeIcon.startAnimation(animIconChange);
         changeCityEdit.startAnimation(animCurrentCity);
         currentCountryField.startAnimation(animCurrentCountry);
+        loadBar.startAnimation(animProgressBarStart);
     }
 
     // Change from time
@@ -165,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         currentTemperatureField.setVisibility(View.INVISIBLE);
                         text_gradus.setVisibility(View.INVISIBLE);
                         changeIcon.setClickable(false);
+                        loadBar.setVisibility(View.INVISIBLE);
                         changeIcon.startAnimation(animationRotationCenter);
 
                         setActiveACTextView(changeCityEdit, true);
@@ -222,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
                             errorText.setVisibility(View.INVISIBLE);
 
-
+                            loadBar.startAnimation(animProgressBarStart);
                             loadBar.setVisibility(View.VISIBLE);
                             // Change
                             changeCity(changeCityEdit.getText().toString());
@@ -321,13 +328,14 @@ public class MainActivity extends AppCompatActivity {
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
                 changeIcon.setClickable(true);
+                loadBar.setVisibility(View.INVISIBLE);
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
-                loadBar.setVisibility(View.INVISIBLE);
 
                 saveText();
 
+                currentCountryField.startAnimation(animCurrentCountry);
                 currentTemperatureField.startAnimation(animTemperature); text_gradus.startAnimation(animTemperature);
 
             }
