@@ -291,23 +291,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && !changeIcon.isClickable()) {
-            changeIcon.clearAnimation();
-            changeIcon.setClickable(true);
-            buttonAccept.setVisibility(View.INVISIBLE);
-            changeCityEdit.setText(memberCity);
-            setActiveACTextView(changeCityEdit, false);
-            currentCountryField.setVisibility(View.VISIBLE);
-            currentTemperatureField.setVisibility(View.VISIBLE);
-            text_gradus.setVisibility(View.VISIBLE);
-            errorText.setVisibility(View.INVISIBLE);
-
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     // TODO: DO something with that функция чтобы проверять города по dataBase
     public boolean checkCity (String city){
         for (String City : Cities) {
