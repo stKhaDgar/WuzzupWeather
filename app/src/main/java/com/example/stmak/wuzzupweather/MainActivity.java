@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Animation animTemperature;
     private Animation animCurrentCountry;
     private Animation animProgressBarStart;
+    private ImageView iconDayTaime;
 
     // Save last city
     final String SAVED_TEXT = "";
@@ -100,18 +101,20 @@ public class MainActivity extends AppCompatActivity {
         Animation animCurrentCity = AnimationUtils.loadAnimation(this, R.anim.current_city_anim);
         animCurrentCountry = AnimationUtils.loadAnimation(this, R.anim.current_country_anim);
         animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
+        Animation animIconDayTime = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom_anim);
 
         findViewById(R.id.arrow_back_icon).startAnimation(animIconBack);
         changeIcon.startAnimation(animIconChange);
         changeCityEdit.startAnimation(animCurrentCity);
         currentCountryField.startAnimation(animCurrentCountry);
         loadBar.startAnimation(animProgressBarStart);
+        iconDayTaime.startAnimation(animIconDayTime);
     }
 
     // Change from time
     public void changesFromCurrentTime(int currentTime){
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
-        ImageView iconDayTaime = findViewById(R.id.icon_day_time);
+        iconDayTaime = findViewById(R.id.icon_day_time);
         loadBar = findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
