@@ -325,17 +325,18 @@ public class MainActivity extends AppCompatActivity {
 
                 currentCountryField.startAnimation(animCurrentCountry);
                 currentTemperatureField.startAnimation(animTemperature); text_gradus.startAnimation(animTemperature);
-
             }
         });
 
         asyncTask.execute(city); //  asyncTask.execute("Latitude", "Longitude")
     }
 
+    // TODO: finished this idea
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        assert connectivityManager != null;
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
