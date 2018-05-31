@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
             view.setClickable(true);
-            view.setBackgroundDrawable(getDrawable(R.drawable.item_transparent_border_city));
+            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
             view.setEnabled(true);
             view.setCursorVisible(true);
             view.setSelectAllOnFocus(true);
