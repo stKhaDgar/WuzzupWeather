@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -97,14 +99,12 @@ public class MainActivity extends AppCompatActivity {
         Animation animIconChange = AnimationUtils.loadAnimation(this, R.anim.slide_from_right_anim);
         Animation animCurrentCity = AnimationUtils.loadAnimation(this, R.anim.current_city_anim);
         animCurrentCountry = AnimationUtils.loadAnimation(this, R.anim.current_country_anim);
-        animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
         Animation animIconDayTime = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom_anim);
 
         findViewById(R.id.arrow_back_icon).startAnimation(animIconBack);
         changeIcon.startAnimation(animIconChange);
         changeCityEdit.startAnimation(animCurrentCity);
         currentCountryField.startAnimation(animCurrentCountry);
-        loadBar.startAnimation(animProgressBarStart);
         iconDayTaime.startAnimation(animIconDayTime);
     }
 
@@ -168,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
                         buttonAccept.setVisibility(View.VISIBLE);
                         currentCountryField.clearAnimation();
                         currentCountryField.setVisibility(View.INVISIBLE);
+                        currentTemperatureField.clearAnimation();
                         currentTemperatureField.setVisibility(View.INVISIBLE);
+                        text_gradus.clearAnimation();
                         text_gradus.setVisibility(View.INVISIBLE);
                         changeIcon.setClickable(false);
                         loadBar.setVisibility(View.INVISIBLE);
@@ -302,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
         animTemperature = AnimationUtils.loadAnimation(this, R.anim.alpha_temperature_anim);
+        animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
+        loadBar.startAnimation(animProgressBarStart);
 
         currentTemperatureField = findViewById(R.id.current_temperature);
         currentCountryField = findViewById(R.id.current_country);
@@ -326,5 +330,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         asyncTask.execute(city); //  asyncTask.execute("Latitude", "Longitude")
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
