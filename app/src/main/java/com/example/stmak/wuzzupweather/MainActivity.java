@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView errorText;
     private Button buttonAccept;
     private String[] Cities;
-    private String memberCity;
 
     // Weather members
     private TextView currentTemperatureField;
@@ -167,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        memberCity = changeCityEdit.getText().toString();
                         buttonAccept.setVisibility(View.VISIBLE);
+                        currentCountryField.clearAnimation();
                         currentCountryField.setVisibility(View.INVISIBLE);
                         currentTemperatureField.setVisibility(View.INVISIBLE);
                         text_gradus.setVisibility(View.INVISIBLE);
