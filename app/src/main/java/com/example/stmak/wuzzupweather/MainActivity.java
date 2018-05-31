@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
                             loadBar.startAnimation(animProgressBarStart);
                             loadBar.setVisibility(View.VISIBLE);
+
                             // Change
                             changeCity(changeCityEdit.getText().toString());
                         }
@@ -267,13 +268,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Shared Preferences
     private void saveText() {
         sPrefCity = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPrefCity.edit();
         ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
         ed.apply();
     }
-
     private void loadText() {
         sPrefCity = getPreferences(MODE_PRIVATE);
         String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
