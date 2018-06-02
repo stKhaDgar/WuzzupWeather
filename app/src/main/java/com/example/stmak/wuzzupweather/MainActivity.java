@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        asyncTask.execute(city); //  asyncTask.execute("Latitude", "Longitude")
+        asyncTask.execute(city);
     }
 
     // TODO: finished this idea

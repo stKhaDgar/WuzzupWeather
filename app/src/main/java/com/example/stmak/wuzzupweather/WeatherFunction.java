@@ -17,8 +17,11 @@ import java.util.Locale;
 
 class WeatherFunction {
 
+//    private static final String OPEN_WEATHER_MAP_URL =
+//            "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
+
     private static final String OPEN_WEATHER_MAP_URL =
-            "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
+            "http://api.openweathermap.org/data/2.5/forecast?q=%s&units=metric";
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
@@ -80,26 +83,27 @@ class WeatherFunction {
         protected void onPostExecute(JSONObject json) {
             try {
                 if(json != null){
-                    JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-                    JSONObject main = json.getJSONObject("main");
-                    DateFormat df = DateFormat.getDateTimeInstance();
+                    //JSONObject details = json.getJSONArray("weather").getJSONObject(0);
+                    JSONObject main = json.getJSONArray("list").getJSONObject(1).getJSONObject("main");
+                    //DateFormat df = DateFormat.getDateTimeInstance();
 
-                    String city = json.getString("name"); //+ ", " + json.getJSONObject("sys").getString("country");
-                    String country = json.getJSONObject("sys").getString("country");
-                    String description = details.getString("description").toUpperCase(Locale.US);
+                    String city = json.getJSONObject("city").getString("name");
+                    String country = json.getJSONObject("city").getString("country");
                     @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getDouble("temp"));
-                    String humidity = main.getString("humidity") + "%";
-                    String pressure = main.getString("pressure") + " hPa";
-                    String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-                    String iconText = setWeatherIcon(details.getInt("id"),
-                            json.getJSONObject("sys").getLong("sunrise") * 1000,
-                            json.getJSONObject("sys").getLong("sunset") * 1000);
+
+//                    String description = details.getString("description").toUpperCase(Locale.US);
+//                    String humidity = main.getString("humidity") + "%";
+//                    String pressure = main.getString("pressure") + " hPa";
+//                    String updatedOn = df.format(new Date(json.getLong("dt")*1000));
+//                    String iconText = setWeatherIcon(details.getInt("id"),
+//                            json.getJSONObject("sys").getLong("sunrise") * 1000,
+//                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
                     delegate.processFinish(temperature, city, country);
 
                 }
             } catch (JSONException e) {
-                //Log.e(LOG_TAG, "Cannot process JSON results", e);
+                Log.e("JSON", "Cannot process JSON results", e);
             }
         }
     }
