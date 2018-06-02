@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         currentCountryField = findViewById(R.id.current_country);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String weather_temperature, String city, String country) {
+            public void processFinish(String weather_temperature, String city, String country, String date) {
                 currentTemperatureField.setText(weather_temperature);
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
@@ -320,6 +320,9 @@ public class MainActivity extends AppCompatActivity {
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
+
+                TextView txt_date = (TextView)findViewById(R.id.date_txt);
+                txt_date.setText(date);
 
                 saveText();
 

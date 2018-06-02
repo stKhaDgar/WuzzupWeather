@@ -117,6 +117,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/Edit_change_city" />
 
                     <TextView
+                        android:id="@+id/date_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="155dp"
+                        android:layout_marginStart="147dp"
+                        android:layout_marginTop="7dp"
+                        android:text="TextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_accept_change" />
+
+                    <TextView
                         android:id="@+id/current_country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -53,7 +53,7 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3);
+        void processFinish(String output, String output2, String output3, String output4);
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -81,22 +81,25 @@ class WeatherFunction {
             try {
                 if(json != null){
                     //JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-                    JSONObject main = json.getJSONArray("list").getJSONObject(1).getJSONObject("main");
-                    //DateFormat df = DateFormat.getDateTimeInstance();
+                    JSONObject main = json.getJSONArray("list").getJSONObject(0);
+                    DateFormat df = DateFormat.getDateTimeInstance();
 
                     String city = json.getJSONObject("city").getString("name");
                     String country = json.getJSONObject("city").getString("country");
-                    @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getDouble("temp"));
+                    @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
+
+                    String updatedOn = main.getString("dt_txt");
+
 
 //                    String description = details.getString("description").toUpperCase(Locale.US);
 //                    String humidity = main.getString("humidity") + "%";
 //                    String pressure = main.getString("pressure") + " hPa";
-//                    String updatedOn = df.format(new Date(json.getLong("dt")*1000));
+//
 //                    String iconText = setWeatherIcon(details.getInt("id"),
 //                            json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    delegate.processFinish(temperature, city, country);
+                    delegate.processFinish(temperature, city, country, updatedOn);
 
                 }
             } catch (JSONException e) {
