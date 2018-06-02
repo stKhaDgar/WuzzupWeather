@@ -1,6 +1,7 @@
 package com.example.stmak.wuzzupweather;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -55,7 +57,7 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3, String output4);
+        void processFinish(String output, String output2, String output3, String output4, String output5, String output6);
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -84,17 +86,27 @@ class WeatherFunction {
                 if(json != null){
                     JSONObject main = json.getJSONArray("list").getJSONObject(0);
 
-                    String now = main.getString("dt");
-
-                    long unixSeconds = Long.parseLong(now);
+                    long unixSeconds = Long.parseLong(main.getString("dt"));
                     Date date = new java.util.Date(unixSeconds*1000L);
                     SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
                     sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
-                    String formattedDate = sdf.format(date);
+
+                    int nowHour = Integer.parseInt(sdf.format(date));
+                    int count = 0;
+
+                    for(int i = nowHour; i < 39; i = i + 3){
+                        count++;
+                    }
+
+                    JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(count);
+                    JSONObject mainAfterTomorrow = json.getJSONArray("list").getJSONObject(count + 8);
+
 
                     String city = json.getJSONObject("city").getString("name");
                     String country = json.getJSONObject("city").getString("country");
                     @SuppressLint("DefaultLocale") String temperatureNow = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
+                    @SuppressLint("DefaultLocale") String temperatureTomorrow = String.format("%.0f", mainTomorrow.getJSONObject("main").getDouble("temp"));
+                    @SuppressLint("DefaultLocale") String temperatureAfterTomorrow = String.format("%.0f", mainAfterTomorrow.getJSONObject("main").getDouble("temp"));
 
 //                    String description = details.getString("description").toUpperCase(Locale.US);
 //                    String humidity = main.getString("humidity") + "%";
@@ -104,7 +116,15 @@ class WeatherFunction {
 //                            json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    delegate.processFinish( city, country, temperatureNow, formattedDate);
+                    delegate.processFinish(
+                            city,
+                            country,
+                            temperatureNow,
+                            //dateNow,
+                            temperatureTomorrow,
+                            temperatureAfterTomorrow,
+                            mainAfterTomorrow.getString("dt")
+                    );
 
                 }
             } catch (JSONException e) {

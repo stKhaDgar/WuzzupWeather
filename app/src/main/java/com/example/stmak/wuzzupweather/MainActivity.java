@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCountryField;
     private TextView temp_now;
+    private TextView temp_tomorrow;
+    private TextView temp_after_tomorrow;
 
     // Animations
     private Animation animationRotationCenter;
@@ -91,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         loadText();
 
         animationsFromStart();
-
     }
 
     // Animations from start App
@@ -309,11 +310,16 @@ public class MainActivity extends AppCompatActivity {
 
         currentTemperatureField = findViewById(R.id.current_temperature);
         currentCountryField = findViewById(R.id.current_country);
+        temp_tomorrow = findViewById(R.id.temp_tomorrow);
+        temp_after_tomorrow = findViewById(R.id.temp_after_tomorrow);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String city, String country, String weather_temperature_now, String date) {
+            public void processFinish(String city, String country, String weather_temperature_now, String weather_temperature_tomorrow,
+                                      String weather_temperature_after_tomorrow, String date) {
                 currentTemperatureField.setText(weather_temperature_now);
                 temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
+                temp_tomorrow.setText(weather_temperature_tomorrow + getString(R.string.temperature_gradus));
+                temp_after_tomorrow.setText(weather_temperature_after_tomorrow + getString(R.string.temperature_gradus));
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
                 changeIcon.setClickable(true);
