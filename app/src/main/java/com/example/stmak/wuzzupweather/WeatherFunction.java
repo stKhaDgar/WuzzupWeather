@@ -57,7 +57,7 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3, String output4, String output5, String output6);
+        void processFinish(String output, String output2, String output3, String output4, String output5, String output6, String output7, String output8);
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -101,6 +101,17 @@ class WeatherFunction {
                     JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(count);
                     JSONObject mainAfterTomorrow = json.getJSONArray("list").getJSONObject(count + 8);
 
+                    String dateNow = main.getString("dt_txt");
+                    String[] arr = dateNow.split("[ ]");
+                    dateNow = arr[0];
+
+                    String dateTomorrow = mainTomorrow.getString("dt_txt");
+                    arr = dateTomorrow.split("[ ]");
+                    dateTomorrow = arr[0];
+
+                    String dateAfterTomorrow = mainAfterTomorrow.getString("dt_txt");
+                    arr = dateAfterTomorrow.split("[ ]");
+                    dateAfterTomorrow = arr[0];
 
                     String city = json.getJSONObject("city").getString("name");
                     String country = json.getJSONObject("city").getString("country");
@@ -120,10 +131,11 @@ class WeatherFunction {
                             city,
                             country,
                             temperatureNow,
-                            //dateNow,
+                            dateNow,
                             temperatureTomorrow,
+                            dateTomorrow,
                             temperatureAfterTomorrow,
-                            mainAfterTomorrow.getString("dt")
+                            dateAfterTomorrow
                     );
 
                 }

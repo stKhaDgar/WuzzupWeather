@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
     // Weather members
     private TextView currentTemperatureField;
     private TextView currentCountryField;
-    private TextView temp_now;
-    private TextView temp_tomorrow;
-    private TextView temp_after_tomorrow;
+    private TextView temp_now, temp_tomorrow, temp_after_tomorrow, tv_date_now, tv_date_tomorrow, tv_date_after_tomorrow;
 
     // Animations
     private Animation animationRotationCenter;
@@ -312,14 +310,22 @@ public class MainActivity extends AppCompatActivity {
         currentCountryField = findViewById(R.id.current_country);
         temp_tomorrow = findViewById(R.id.temp_tomorrow);
         temp_after_tomorrow = findViewById(R.id.temp_after_tomorrow);
+        tv_date_now = findViewById(R.id.date_now);
+        tv_date_tomorrow = findViewById(R.id.date_tomorrow);
+        tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String city, String country, String weather_temperature_now, String weather_temperature_tomorrow,
-                                      String weather_temperature_after_tomorrow, String date) {
+            public void processFinish(String city, String country,
+                                      String weather_temperature_now, String date_now,
+                                      String weather_temperature_tomorrow, String date_tomorrow,
+                                      String weather_temperature_after_tomorrow, String date_after_tomorrow) {
                 currentTemperatureField.setText(weather_temperature_now);
                 temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
+                tv_date_now.setText(date_now);
                 temp_tomorrow.setText(weather_temperature_tomorrow + getString(R.string.temperature_gradus));
+                tv_date_tomorrow.setText(date_tomorrow);
                 temp_after_tomorrow.setText(weather_temperature_after_tomorrow + getString(R.string.temperature_gradus));
+                tv_date_after_tomorrow.setText(date_after_tomorrow);
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
                 changeIcon.setClickable(true);
@@ -327,9 +333,6 @@ public class MainActivity extends AppCompatActivity {
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
-
-                TextView txt_date = findViewById(R.id.date_txt);
-                txt_date.setText(date);
 
                 saveText();
 
