@@ -28,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,29 +113,24 @@ public class MainActivity extends AppCompatActivity {
     // Change from time
     public void changesFromCurrentTime(int currentTime){
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
+        TextView text_now = (TextView)findViewById(R.id.text_now);
         iconDayTaime = findViewById(R.id.icon_day_time);
         loadBar = findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
-            TextView text_morning = findViewById(R.id.text_weather_morning);
-            text_morning.setText(R.string.now_weather);
-            text_morning.setTextColor(Color.parseColor("#ea607e"));
+            text_now.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
-            TextView text_day = findViewById(R.id.text_weather_day);
-            text_day.setText(R.string.now_weather);
-            text_day.setTextColor(Color.parseColor("#46cbf7"));
+            text_now.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
-            TextView text_night = findViewById(R.id.text_weather_night);
-            text_night.setText(R.string.now_weather);
-            text_night.setTextColor(Color.parseColor("#b056b8"));
+            text_now.setTextColor(Color.parseColor("#b056b8"));
         }
     }
 

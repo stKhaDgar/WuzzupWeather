@@ -5,10 +5,9 @@
     <string name="error_txt">Введите существующий город!</string>
     <string name="button_accept">Изменить</string>
     <string name="temperature_gradus">°</string>
-    <string name="morning_weather">Утром</string>
-    <string name="day_weather">Днём</string>
-    <string name="night_weather">Ночью</string>
-    <string name="now_weather">Сейчас</string>
+    <string name="tomorrow_weather">Завтра</string>
+    <string name="day_after_tomorrow_weather">Послезавтра</string>
+    <string name="today_weather">Сегодня</string>
     <string name="arrow_back">Close app</string>
     <string name="change_icon">Change city</string>
     <string name="icon_day_time">Big icon in bottom screen</string>

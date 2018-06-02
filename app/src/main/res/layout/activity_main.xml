@@ -231,7 +231,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/text_weather_morning"
+                            android:id="@+id/text_now"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/items_weather_from_day"
@@ -239,11 +239,11 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="24sp"
-                            android:text="@string/morning_weather"
+                            android:text="@string/today_weather"
                             android:textColor="#b9b9b9" />
 
                         <TextView
-                            android:id="@+id/text_weather_day"
+                            android:id="@+id/text_tomorrow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/items_weather_from_day"
@@ -251,11 +251,11 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="16sp"
-                            android:text="@string/day_weather"
+                            android:text="@string/tomorrow_weather"
                             android:textColor="#b9b9b9" />
 
                         <TextView
-                            android:id="@+id/text_weather_night"
+                            android:id="@+id/text_day_after_tomorrow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/items_weather_from_day"
@@ -263,7 +263,7 @@
                             android:paddingLeft="4sp"
                             android:paddingRight="4sp"
                             android:paddingTop="16sp"
-                            android:text="@string/night_weather"
+                            android:text="@string/day_after_tomorrow_weather"
                             android:textColor="#b9b9b9" />
 
                     </LinearLayout>
