@@ -12,8 +12,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 class WeatherFunction {
 
@@ -80,16 +82,19 @@ class WeatherFunction {
         protected void onPostExecute(JSONObject json) {
             try {
                 if(json != null){
-                    //JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                     JSONObject main = json.getJSONArray("list").getJSONObject(0);
-                    DateFormat df = DateFormat.getDateTimeInstance();
+
+                    String now = main.getString("dt");
+
+                    long unixSeconds = Long.parseLong(now);
+                    Date date = new java.util.Date(unixSeconds*1000L);
+                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
+                    sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
+                    String formattedDate = sdf.format(date);
 
                     String city = json.getJSONObject("city").getString("name");
                     String country = json.getJSONObject("city").getString("country");
-                    @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
-
-                    String updatedOn = main.getString("dt_txt");
-
+                    @SuppressLint("DefaultLocale") String temperatureNow = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
 
 //                    String description = details.getString("description").toUpperCase(Locale.US);
 //                    String humidity = main.getString("humidity") + "%";
@@ -99,7 +104,7 @@ class WeatherFunction {
 //                            json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    delegate.processFinish(temperature, city, country, updatedOn);
+                    delegate.processFinish( city, country, temperatureNow, formattedDate);
 
                 }
             } catch (JSONException e) {

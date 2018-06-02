@@ -28,8 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     // Weather members
     private TextView currentTemperatureField;
     private TextView currentCountryField;
+    private TextView temp_now;
 
     // Animations
     private Animation animationRotationCenter;
@@ -113,24 +112,28 @@ public class MainActivity extends AppCompatActivity {
     // Change from time
     public void changesFromCurrentTime(int currentTime){
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
-        TextView text_now = (TextView)findViewById(R.id.text_now);
+        TextView text_now = findViewById(R.id.text_now);
         iconDayTaime = findViewById(R.id.icon_day_time);
+        temp_now = findViewById(R.id.temp_now);
         loadBar = findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
             mainLayout.setBackground(getDrawable(R.drawable.morning_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
             text_now.setTextColor(Color.parseColor("#ea607e"));
+            temp_now.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
             text_now.setTextColor(Color.parseColor("#46cbf7"));
+            temp_now.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
             text_now.setTextColor(Color.parseColor("#b056b8"));
+            temp_now.setTextColor(Color.parseColor("#b056b8"));
         }
     }
 
@@ -308,8 +311,9 @@ public class MainActivity extends AppCompatActivity {
         currentCountryField = findViewById(R.id.current_country);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String weather_temperature, String city, String country, String date) {
-                currentTemperatureField.setText(weather_temperature);
+            public void processFinish(String city, String country, String weather_temperature_now, String date) {
+                currentTemperatureField.setText(weather_temperature_now);
+                temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
                 changeCityEdit.setText(city);
                 currentCountryField.setText(country);
                 changeIcon.setClickable(true);
@@ -318,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
 
-                TextView txt_date = (TextView)findViewById(R.id.date_txt);
+                TextView txt_date = findViewById(R.id.date_txt);
                 txt_date.setText(date);
 
                 saveText();
