@@ -1,5 +1,7 @@
 package com.example.stmak.wuzzupweather;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -27,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCountryField;
     private TextView temp_now, temp_tomorrow, temp_after_tomorrow, tv_date_now, tv_date_tomorrow, tv_date_after_tomorrow;
+    private LinearLayout today_layout, today_list;
+    private boolean isBig;
 
     // Animations
     private Animation animationRotationCenter;
@@ -143,6 +149,48 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         finish();
+                    }
+                }
+        );
+
+        // Click on todayLayout
+        today_layout = findViewById(R.id.today_layout);
+        today_list = findViewById(R.id.today_list);
+        isBig = false;
+
+        today_layout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!isBig){
+                            v.setClickable(false);
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 200);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.requestLayout();
+
+                                }
+                            });
+                            va.start();
+                            isBig = true;
+                        }
+                        else{
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.requestLayout();
+                                }
+                            });
+                            va.start();
+                            isBig = false;
+                        }
+                        v.setClickable(true);
                     }
                 }
         );

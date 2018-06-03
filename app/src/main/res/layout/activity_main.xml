@@ -219,9 +219,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <LinearLayout
+                            android:id="@+id/today_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
 
+                            android:layout_height="match_parent"
                             android:background="@drawable/items_weather_from_day"
                             android:orientation="horizontal">
 
@@ -262,6 +263,32 @@
                                 android:paddingTop="20sp"
                                 android:textAlignment="textEnd"
                                 android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/today_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="1sp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hello" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="20sp"
+                                android:text="Hello" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hello"
+                                android:textSize="30sp" />
+
+
                         </LinearLayout>
 
                         <LinearLayout

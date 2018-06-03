@@ -137,7 +137,6 @@ class WeatherFunction {
                             temperatureAfterTomorrow,
                             dateAfterTomorrow
                     );
-
                 }
             } catch (JSONException e) {
                 Log.e("JSON", "Cannot process JSON results", e);
