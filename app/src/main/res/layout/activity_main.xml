@@ -239,8 +239,7 @@
                                     android:paddingLeft="4sp"
                                     android:paddingRight="4sp"
                                     android:paddingTop="20sp"
-                                    android:text="@string/today_weather"
-                                    android:textColor="#b9b9b9" />
+                                    android:text="@string/today_weather" />
 
                                 <TextView
                                     android:id="@+id/date_now"
@@ -303,15 +302,14 @@
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/text_tomorrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="4sp"
-                                android:paddingRight="4sp"
-                                android:paddingTop="10sp"
-                                android:text="@string/tomorrow_weather"
-                                android:textColor="#999" />
+                                <TextView
+                                    android:id="@+id/text_tomorrow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="4sp"
+                                    android:paddingRight="4sp"
+                                    android:paddingTop="10sp"
+                                    android:text="@string/tomorrow_weather" />
 
                                 <TextView
                                     android:id="@+id/date_tomorrow"
@@ -349,15 +347,14 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/text_day_after_tomorrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="4sp"
-                            android:paddingRight="4sp"
-                            android:paddingTop="10sp"
-                            android:text="@string/day_after_tomorrow_weather"
-                            android:textColor="#999" />
+                            <TextView
+                                android:id="@+id/text_day_after_tomorrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="4sp"
+                                android:paddingRight="4sp"
+                                android:paddingTop="10sp"
+                                android:text="@string/day_after_tomorrow_weather" />
 
                             <TextView
                                 android:id="@+id/date_after_tomorrow"
