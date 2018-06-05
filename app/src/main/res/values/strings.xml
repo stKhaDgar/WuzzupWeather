@@ -12,7 +12,6 @@
     <string name="change_icon">Change city</string>
     <string name="icon_day_time">Big icon in bottom screen</string>
 
-
     <!-- CITIES -->
     <string name="default_city">Kiev</string>
     <string name="default_country">UA</string>

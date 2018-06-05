@@ -156,15 +156,18 @@ public class MainActivity extends AppCompatActivity {
         // Click on todayLayout
         today_layout = findViewById(R.id.today_layout);
         today_list = findViewById(R.id.today_list);
+        today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int heightTL = today_list.getMeasuredHeight();
         isBig = false;
 
         today_layout.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if(!isBig){
                             v.setClickable(false);
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 200);
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
