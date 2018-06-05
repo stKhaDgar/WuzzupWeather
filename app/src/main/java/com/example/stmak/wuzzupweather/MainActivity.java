@@ -285,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
                             loadBar.setVisibility(View.VISIBLE);
 
                             // Change
+                            changeCityEdit.setText(changeCityEdit.getText().toString());
                             changeCity(changeCityEdit.getText().toString());
                         }
                         else{
