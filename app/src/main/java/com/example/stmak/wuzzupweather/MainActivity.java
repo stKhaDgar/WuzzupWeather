@@ -98,9 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setActiveACTextView(changeCityEdit, false);
         changeCityEdit.clearFocus();
         loadText();
-
-
-
+        
         animationsFromStart();
     }
 
