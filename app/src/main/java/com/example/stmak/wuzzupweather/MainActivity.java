@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCountryField;
     private TextView temp_now, temp_tomorrow, temp_after_tomorrow, tv_date_now, tv_date_tomorrow, tv_date_after_tomorrow;
-    private LinearLayout today_layout, today_list;
-    private boolean isBig;
+    private LinearLayout today_layout, today_list, tomorrow_layout, tomorrow_list, aftertomorrow_layout, aftertomorrow_list;
+    private boolean isBigToday, isBigTomorrow, isBigAfterTomorrow;
 
     // Animations
     private Animation animationRotationCenter;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sPrefCity;
 
     // List
-    private ListView lvToday;
+    private ListView lvToday, lvTomorrow, lvAfterTomorrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setActiveACTextView(changeCityEdit, false);
         changeCityEdit.clearFocus();
         loadText();
-        
+
         animationsFromStart();
     }
 
@@ -264,16 +264,18 @@ public class MainActivity extends AppCompatActivity {
         today_list = findViewById(R.id.today_list);
         today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int heightTL = today_list.getMeasuredHeight();
-        isBig = false;
+        isBigToday = false;
+
+        final int countToday = lvToday.getCount();
 
         today_layout.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        if(!isBig){
+                        if(!isBigToday){
                             v.setClickable(false);
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL);
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -284,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                             va.start();
-                            isBig = true;
+                            isBigToday = true;
                         }
                         else{
                             ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
@@ -297,7 +299,105 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                             va.start();
-                            isBig = false;
+                            isBigToday = false;
+                        }
+                        v.setClickable(true);
+                    }
+                }
+        );
+    }
+
+    public void clickTomorrowList() {
+        // Click on todayLayout
+        tomorrow_layout = findViewById(R.id.tomorrow_layout);
+        tomorrow_list = findViewById(R.id.tomorrow_list);
+        tomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int heightTomL = tomorrow_list.getMeasuredHeight();
+        isBigTomorrow = false;
+
+        final int countTomorrow = lvTomorrow.getCount();
+
+        tomorrow_layout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(!isBigTomorrow){
+                            v.setClickable(false);
+                            ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countTomorrow);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    tomorrow_list.getLayoutParams().height = value.intValue();
+                                    tomorrow_list.requestLayout();
+
+                                }
+                            });
+                            va.start();
+                            isBigTomorrow = true;
+                        }
+                        else{
+                            ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    tomorrow_list.getLayoutParams().height = value.intValue();
+                                    tomorrow_list.requestLayout();
+                                }
+                            });
+                            va.start();
+                            isBigTomorrow = false;
+                        }
+                        v.setClickable(true);
+                    }
+                }
+        );
+    }
+
+    public void clickAfterTomorrowList() {
+        // Click on todayLayout
+        aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
+        aftertomorrow_list = findViewById(R.id.day_after_tomorrow_list);
+        aftertomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int heightTomL = aftertomorrow_list.getMeasuredHeight();
+        isBigAfterTomorrow = false;
+
+        final int countAfterTomorrow = lvAfterTomorrow.getCount();
+
+        aftertomorrow_layout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(!isBigAfterTomorrow){
+                            v.setClickable(false);
+                            ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countAfterTomorrow);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                    aftertomorrow_list.requestLayout();
+
+                                }
+                            });
+                            va.start();
+                            isBigAfterTomorrow = true;
+                        }
+                        else{
+                            ValueAnimator va = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                    aftertomorrow_list.requestLayout();
+                                }
+                            });
+                            va.start();
+                            isBigAfterTomorrow = false;
                         }
                         v.setClickable(true);
                     }
@@ -374,8 +474,8 @@ public class MainActivity extends AppCompatActivity {
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String city, String country,
                                       String weather_temperature_now, String[] arrToday, String date_now,
-                                      String weather_temperature_tomorrow, String date_tomorrow,
-                                      String weather_temperature_after_tomorrow, String date_after_tomorrow) {
+                                      String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
+                                      String weather_temperature_after_tomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
                 currentTemperatureField.setText(weather_temperature_now);
                 temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
                 tv_date_now.setText(date_now);
@@ -395,6 +495,20 @@ public class MainActivity extends AppCompatActivity {
                 lvToday = (ListView) findViewById(R.id.list_view_today);
                 lvToday.setAdapter(new MyListAdapter(MainActivity.this, arrToday));
                 clickTodayList();
+
+                // List tomorrow
+                lvTomorrow = (ListView) findViewById(R.id.list_view_tomorrow);
+                lvTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrTomorrow));
+                clickTomorrowList();
+
+                // List tomorrow
+                lvAfterTomorrow = (ListView) findViewById(R.id.list_view_day_after_tomorrow);
+                lvAfterTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrAfterTomorrow));
+                clickAfterTomorrowList();
+
+                lvToday.setVisibility(View.VISIBLE);
+                lvTomorrow.setVisibility(View.VISIBLE);
+                lvAfterTomorrow.setVisibility(View.VISIBLE);
 
                 saveText();
 

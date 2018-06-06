@@ -57,7 +57,7 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3, String[] output4, String output5, String output6, String output7, String output8, String output9);
+        void processFinish(String output, String output2, String output3, String[] output4, String output5, String output6, String[] output7, String output8, String output9, String[] output10, String output11);
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -98,6 +98,15 @@ class WeatherFunction {
                         count++;
                     }
 
+                    int arrtod = 0;
+                    for(int i = nowHour; i < 24; i = i + 3){
+                        arrtod++;
+                    }
+
+                    String[] arrToday = getArrToday(json, arrtod);
+                    String[] arrTomorrow = getArrToday(json, arrtod+8);
+                    String[] arrAfterTomorrow = getArrToday(json, arrtod+16);
+
                     JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(count);
                     JSONObject mainAfterTomorrow = json.getJSONArray("list").getJSONObject(count + 8);
 
@@ -127,8 +136,6 @@ class WeatherFunction {
 //                            json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
-                    String[] arrToday = getArr(json, main.getString("dt"));
-
                     delegate.processFinish(
                             city,
                             country,
@@ -136,8 +143,10 @@ class WeatherFunction {
                             arrToday,
                             dateNow,
                             temperatureTomorrow,
+                            arrTomorrow,
                             dateTomorrow,
                             temperatureAfterTomorrow,
+                            arrAfterTomorrow,
                             dateAfterTomorrow
                     );
                 }
@@ -147,33 +156,29 @@ class WeatherFunction {
         }
     }
 
-    protected static String[] getArr(JSONObject json, String id) throws JSONException {
+    protected static String[] getArrToday(JSONObject json, int num) throws JSONException {
         String[] arr;
 
-        JSONObject main = json.getJSONArray("list").getJSONObject(0);
+        arr = new String[num];
 
-        long unixSeconds = Long.parseLong(main.getString("dt"));
-        Date date = new java.util.Date(unixSeconds*1000L);
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
-        sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
+        int temp = 0;
 
-        int nowHour = Integer.parseInt(sdf.format(date));
-        int count = 0;
-
-        for(int i = nowHour; i < 24; i = i + 3){
-            count++;
+        if(num > 8){
+            temp = num - 8;
+            arr = new String[8];
         }
 
-        arr = new String[count];
-
-        for(int i = 0; i < count; i++){
-            JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(i);
+        int i = 0;
+        for(;temp < num; temp++){
+            JSONObject main = json.getJSONArray("list").getJSONObject(temp);
             String dateNow = main.getString("dt_txt");
-            String[] arrTemp = dateNow.split("[ ]");
-            arr[i] = arrTemp[1];
+            arr[i] = dateNow;
+            i++;
         }
         return arr;
     }
+
+
 
     static JSONObject getWeatherJSON(String city){
         try {

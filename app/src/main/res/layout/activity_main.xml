@@ -282,6 +282,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/tomorrow_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/items_weather_from_day"
@@ -326,50 +327,85 @@
                                 android:textSize="14sp" />
                         </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/items_weather_from_day"
-                        android:orientation="horizontal">
-
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:id="@+id/tomorrow_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="1sp"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/text_day_after_tomorrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="4sp"
-                                android:paddingRight="4sp"
-                                android:paddingTop="10sp"
-                                android:text="@string/day_after_tomorrow_weather" />
-
-                            <TextView
-                                android:id="@+id/date_after_tomorrow"
+                            <ListView
+                                android:id="@+id/list_view_tomorrow"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-condensed"
-                                android:paddingBottom="20sp"
-                                android:paddingLeft="4sp"
-                                android:paddingRight="4sp"
-                                android:textColor="#b9b9b9"
-                                android:textSize="12sp" />
+                                android:layout_height="match_parent"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:visibility="invisible" />
+
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/temp_after_tomorrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingTop="10sp"
-                            android:textAlignment="textEnd"
-                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:id="@+id/after_tomorrow_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/items_weather_from_day"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/text_day_after_tomorrow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="4sp"
+                                    android:paddingRight="4sp"
+                                    android:paddingTop="10sp"
+                                    android:text="@string/day_after_tomorrow_weather" />
+
+                                <TextView
+                                    android:id="@+id/date_after_tomorrow"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:paddingBottom="10sp"
+                                    android:paddingLeft="4sp"
+                                    android:paddingRight="4sp"
+                                    android:textColor="#b9b9b9"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/temp_after_tomorrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingTop="10sp"
+                                android:textAlignment="textEnd"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/day_after_tomorrow_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="1sp"
+                            android:orientation="vertical">
+
+                            <ListView
+                                android:id="@+id/list_view_day_after_tomorrow"
+                                android:layout_width="match_parent"
+                                android:focusable="false"
+                                android:visibility="invisible"
+                                android:focusableInTouchMode="false"
+                                android:layout_height="match_parent" />
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
