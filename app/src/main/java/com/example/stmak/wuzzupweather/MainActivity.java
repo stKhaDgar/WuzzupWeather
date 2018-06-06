@@ -389,7 +389,10 @@ public class MainActivity extends AppCompatActivity {
                 saveText();
 
                 currentCountryField.startAnimation(animCurrentCountry);
-                currentTemperatureField.startAnimation(animTemperature); text_gradus.startAnimation(animTemperature);
+                if(!currentTemperatureField.getText().toString().equals("")){
+                    currentTemperatureField.startAnimation(animTemperature);
+                }
+                text_gradus.startAnimation(animTemperature);
             }
         });
 
