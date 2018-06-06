@@ -270,22 +270,13 @@
                             android:layout_height="1sp"
                             android:orientation="vertical">
 
-                            <TextView
+                            <ListView
+                                android:id="@+id/list_view_today"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Hello" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="20sp"
-                                android:text="Hello" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Hello"
-                                android:textSize="30sp" />
+                                android:focusable="false"
+                                android:visibility="invisible"
+                                android:focusableInTouchMode="false"
+                                android:layout_height="match_parent" />
 
 
                         </LinearLayout>

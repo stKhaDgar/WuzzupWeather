@@ -28,6 +28,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     final String SAVED_TEXT = "";
     SharedPreferences sPrefCity;
 
+    // List
+    private ListView lvToday;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         int screenHigh = size.y;
-
         LinearLayout layout = findViewById(R.id.layout1);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
         params.height = screenHigh;
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         setActiveACTextView(changeCityEdit, false);
         changeCityEdit.clearFocus();
         loadText();
+
+
 
         animationsFromStart();
     }
@@ -149,51 +154,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         finish();
-                    }
-                }
-        );
-
-        // Click on todayLayout
-        today_layout = findViewById(R.id.today_layout);
-        today_list = findViewById(R.id.today_list);
-        today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int heightTL = today_list.getMeasuredHeight();
-        isBig = false;
-
-        today_layout.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if(!isBig){
-                            v.setClickable(false);
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL);
-                            va.setDuration(600);
-                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    today_list.getLayoutParams().height = value.intValue();
-                                    today_list.requestLayout();
-
-                                }
-                            });
-                            va.start();
-                            isBig = true;
-                        }
-                        else{
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                            va.setDuration(600);
-                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    today_list.getLayoutParams().height = value.intValue();
-                                    today_list.requestLayout();
-                                }
-                            });
-                            va.start();
-                            isBig = false;
-                        }
-                        v.setClickable(true);
                     }
                 }
         );
@@ -300,6 +260,53 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    public void clickTodayList() {
+        // Click on todayLayout
+        today_layout = findViewById(R.id.today_layout);
+        today_list = findViewById(R.id.today_list);
+        today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int heightTL = today_list.getMeasuredHeight();
+        isBig = false;
+
+        today_layout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(!isBig){
+                            v.setClickable(false);
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.requestLayout();
+
+                                }
+                            });
+                            va.start();
+                            isBig = true;
+                        }
+                        else{
+                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
+                            va.setDuration(600);
+                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.requestLayout();
+                                }
+                            });
+                            va.start();
+                            isBig = false;
+                        }
+                        v.setClickable(true);
+                    }
+                }
+        );
+    }
+
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
             view.setClickable(true);
@@ -368,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             public void processFinish(String city, String country,
-                                      String weather_temperature_now, String date_now,
+                                      String weather_temperature_now, String[] arrToday, String date_now,
                                       String weather_temperature_tomorrow, String date_tomorrow,
                                       String weather_temperature_after_tomorrow, String date_after_tomorrow) {
                 currentTemperatureField.setText(weather_temperature_now);
@@ -385,6 +392,11 @@ public class MainActivity extends AppCompatActivity {
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
+
+                // List today
+                lvToday = (ListView) findViewById(R.id.list_view_today);
+                lvToday.setAdapter(new MyListAdapter(MainActivity.this, arrToday));
+                clickTodayList();
 
                 saveText();
 

@@ -57,7 +57,7 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3, String output4, String output5, String output6, String output7, String output8);
+        void processFinish(String output, String output2, String output3, String[] output4, String output5, String output6, String output7, String output8, String output9);
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -127,10 +127,13 @@ class WeatherFunction {
 //                            json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                            json.getJSONObject("sys").getLong("sunset") * 1000);
 
+                    String[] arrToday = getArr(json, main.getString("dt"));
+
                     delegate.processFinish(
                             city,
                             country,
                             temperatureNow,
+                            arrToday,
                             dateNow,
                             temperatureTomorrow,
                             dateTomorrow,
@@ -142,6 +145,34 @@ class WeatherFunction {
                 Log.e("JSON", "Cannot process JSON results", e);
             }
         }
+    }
+
+    protected static String[] getArr(JSONObject json, String id) throws JSONException {
+        String[] arr;
+
+        JSONObject main = json.getJSONArray("list").getJSONObject(0);
+
+        long unixSeconds = Long.parseLong(main.getString("dt"));
+        Date date = new java.util.Date(unixSeconds*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
+
+        int nowHour = Integer.parseInt(sdf.format(date));
+        int count = 0;
+
+        for(int i = nowHour; i < 24; i = i + 3){
+            count++;
+        }
+
+        arr = new String[count];
+
+        for(int i = 0; i < count; i++){
+            JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(i);
+            String dateNow = main.getString("dt_txt");
+            String[] arrTemp = dateNow.split("[ ]");
+            arr[i] = arrTemp[1];
+        }
+        return arr;
     }
 
     static JSONObject getWeatherJSON(String city){
