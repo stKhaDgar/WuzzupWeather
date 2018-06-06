@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     // List
     private ListView lvToday, lvTomorrow, lvAfterTomorrow;
 
+    private NestedScrollView sc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         loadText();
 
         animationsFromStart();
+
+
     }
 
     // Animations from start App
@@ -328,10 +333,9 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    final Integer value = (Integer) animation.getAnimatedValue();
                                     tomorrow_list.getLayoutParams().height = value.intValue();
                                     tomorrow_list.requestLayout();
-
                                 }
                             });
                             va.start();
@@ -372,15 +376,22 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         if(!isBigAfterTomorrow){
+
+                            sc = (NestedScrollView) findViewById(R.id.nestedScrollView);
+
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countAfterTomorrow);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
+                                    final Integer value = (Integer) animation.getAnimatedValue();
                                     aftertomorrow_list.getLayoutParams().height = value.intValue();
                                     aftertomorrow_list.requestLayout();
-
+                                    sc.post(new Runnable() {
+                                        public void run() {
+                                            sc.scrollTo(0, sc.getScrollY() + value.intValue()/10); // these are your x and y coordinates
+                                        }
+                                    });
                                 }
                             });
                             va.start();
