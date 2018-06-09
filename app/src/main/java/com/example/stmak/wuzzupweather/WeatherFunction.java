@@ -26,18 +26,22 @@ class WeatherFunction {
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
-    static String setWeatherIcon(int actualId){
+    static String setWeatherIcon(int actualId, String dt){
         int id = actualId / 100;
         String icon = "";
-        long currentTime = new Date().getTime();
-        Log.i("CURRENTTIME", currentTime+"");
-        if(actualId == 800){
 
-//            if(currentTime>=sunrise && currentTime<sunset) {
-//                icon = "&#xf00d;";
-//            } else {
-//                icon = "&#xf02e;";
-//            }
+        // get current time from dt
+        Date date = new java.util.Date(Long.parseLong(dt)*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
+        int nowHour = Integer.parseInt(sdf.format(date));
+
+        if(actualId == 800){
+            if(nowHour>=7 && nowHour<21) {
+                icon = "&#xf00d;";
+            } else {
+                icon = "&#xf02e;";
+            }
         } else {
             switch(id) {
                 case 2 : icon = "&#xf01e;";
@@ -59,10 +63,10 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3,
-                           String[] output4, String output5, String output6,
-                           String[] output7, String output8, String output9,
-                           String[] output10, String output11
+        void processFinish(String output, String output2, String output3, String output4,
+                           String[] output5, String output6, String output7,
+                           String[] output8, String output9, String output10,
+                           String[] output11, String output12
         );
     }
 
@@ -139,14 +143,14 @@ class WeatherFunction {
 //                    String humidity = main.getString("humidity") + "%";
 //                    String pressure = main.getString("pressure") + " hPa";
 //
-                    String iconTextToday = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"));
-
-                    Log.i("CURRENTTIMEICON", iconTextToday);
+                    String iconTextToday = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"),
+                            main.getString("dt"));
 
                     delegate.processFinish(
                             city,
                             country,
                             temperatureNow,
+                            iconTextToday,
                             arrToday,
                             dateNow,
                             temperatureTomorrow,

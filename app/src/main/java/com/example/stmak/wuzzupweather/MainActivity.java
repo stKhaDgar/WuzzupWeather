@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean isBigToday, isBigTomorrow, isBigAfterTomorrow;
     private int heightTL, countToday, heightTomL, countTomorrow, heightAfterTomL, countAfterTomorrow;
 
+    // Icons weather
+    private TextView weatherIconAfterTomorrow;
+
     // Animations
     private Animation animationRotationCenter;
     private Animation animTemperature;
@@ -277,16 +280,14 @@ public class MainActivity extends AppCompatActivity {
         tv_date_tomorrow = findViewById(R.id.date_tomorrow);
         tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
 
-        TextView weatherIcon = findViewById(R.id.icon_after_tomorrow);
-
-        weatherIcon.setTypeface(weatherFont);
-        weatherIcon.setText(R.string.weather_rainy);
+        weatherIconAfterTomorrow = findViewById(R.id.icon_after_tomorrow);
+        weatherIconAfterTomorrow.setTypeface(weatherFont);
 
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             @SuppressLint("SetTextI18n")
             public void processFinish(String city, String country,
-                                      String weather_temperature_now, String[] arrToday, String date_now,
+                                      String weather_temperature_now, String iconToday, String[] arrToday, String date_now,
                                       String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
                                       String weather_temperature_after_tomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
                 currentTemperatureField.setText(weather_temperature_now);
@@ -303,6 +304,9 @@ public class MainActivity extends AppCompatActivity {
                 currentCountryField.setVisibility(View.VISIBLE);
                 currentTemperatureField.setVisibility(View.VISIBLE);
                 text_gradus.setVisibility(View.VISIBLE);
+
+                // Icons
+                weatherIconAfterTomorrow.setText(R.string.weather_rainy);
 
                 // List today
                 lvToday = findViewById(R.id.list_view_today);
