@@ -496,13 +496,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(!isBigTomorrow){
+                            sc = findViewById(R.id.nestedScrollView);
+
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countTomorrow);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
+                                    final Integer value = (Integer) animation.getAnimatedValue();
+                                    tomorrow_list.getLayoutParams().height = value;
                                     tomorrow_list.requestLayout();
+                                    sc.post(new Runnable() {
+                                        public void run() {
+                                            sc.scrollTo(0, sc.getScrollY() + value /10); // these are your x and y coordinates
+                                        }
+                                    });
                                 }
                             });
                             va.start();
@@ -570,18 +578,34 @@ public class MainActivity extends AppCompatActivity {
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightAfterTomL * countAfterTomorrow);
                             va.setDuration(600);
-                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    final Integer value = (Integer) animation.getAnimatedValue();
-                                    aftertomorrow_list.getLayoutParams().height = value;
-                                    aftertomorrow_list.requestLayout();
-                                    sc.post(new Runnable() {
-                                        public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value /20); // these are your x and y coordinates
-                                        }
-                                    });
-                                }
-                            });
+
+                            if(isBigTomorrow) {
+                                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                    public void onAnimationUpdate(ValueAnimator animation) {
+                                        final Integer value = (Integer) animation.getAnimatedValue();
+                                        aftertomorrow_list.getLayoutParams().height = value;
+                                        aftertomorrow_list.requestLayout();
+                                    }
+                                });
+
+                            }
+                            else {
+                                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                    public void onAnimationUpdate(ValueAnimator animation) {
+                                        final Integer value = (Integer) animation.getAnimatedValue();
+                                        aftertomorrow_list.getLayoutParams().height = value;
+                                        aftertomorrow_list.requestLayout();
+
+                                        sc.post(new Runnable() {
+                                            public void run() {
+                                                sc.scrollTo(0, sc.getScrollY() + value/10); // these are your x and y coordinates
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+
+
                             va.start();
                             isBigAfterTomorrow = true;
 
