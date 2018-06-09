@@ -67,9 +67,9 @@ class WeatherFunction {
     public interface AsyncResponse {
 
         void processFinish(String output, String output2, String output3, String output4,
-                           String[] output5, String output6, String output7,
-                           String[] output8, String output9, String output10,
-                           String[] output11, String output12
+                           String[] output5, String output6, String output7, String output8,
+                           String[] output9, String output10, String output11, String output12,
+                           String[] output13, String output14
         );
     }
 
@@ -149,6 +149,12 @@ class WeatherFunction {
                     String iconTextToday = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"),
                             main.getString("dt"));
 
+                    String iconTextTomorrow = setWeatherIcon(mainTomorrow.getJSONArray("weather").getJSONObject(0).getInt("id"),
+                            mainTomorrow.getString("dt"));
+
+                    String iconTextAfterTomorrow = setWeatherIcon(mainAfterTomorrow.getJSONArray("weather").getJSONObject(0).getInt("id"),
+                            mainAfterTomorrow.getString("dt"));
+
                     delegate.processFinish(
                             city,
                             country,
@@ -157,9 +163,11 @@ class WeatherFunction {
                             arrToday,
                             dateNow,
                             temperatureTomorrow,
+                            iconTextTomorrow,
                             arrTomorrow,
                             dateTomorrow,
                             temperatureAfterTomorrow,
+                            iconTextAfterTomorrow,
                             arrAfterTomorrow,
                             dateAfterTomorrow
                     );

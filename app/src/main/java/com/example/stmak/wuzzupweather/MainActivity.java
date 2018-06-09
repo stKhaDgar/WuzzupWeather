@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private int heightTL, countToday, heightTomL, countTomorrow, heightAfterTomL, countAfterTomorrow;
 
     // Icons weather
-    private TextView weatherIconAfterTomorrow;
+    private TextView weatherIconToday, weatherIconTomorrow, weatherIconAfterTomorrow;
 
     // Animations
     private Animation animationRotationCenter;
@@ -281,7 +281,11 @@ public class MainActivity extends AppCompatActivity {
         tv_date_tomorrow = findViewById(R.id.date_tomorrow);
         tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
 
+        weatherIconToday = findViewById(R.id.icon_now);
+        weatherIconTomorrow = findViewById(R.id.icon_tomorrow);
         weatherIconAfterTomorrow = findViewById(R.id.icon_after_tomorrow);
+        weatherIconToday.setTypeface(weatherFont);
+        weatherIconTomorrow.setTypeface(weatherFont);
         weatherIconAfterTomorrow.setTypeface(weatherFont);
 
         WeatherFunction.placeIdTask asyncTask;
@@ -289,8 +293,8 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void processFinish(String city, String country,
                                       String weather_temperature_now, String iconToday, String[] arrToday, String date_now,
-                                      String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
-                                      String weather_temperature_after_tomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
+                                      String weather_temperature_tomorrow, String iconTomorrow, String[] arrTomorrow, String date_tomorrow,
+                                      String weather_temperature_after_tomorrow, String iconAfterTomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
                 currentTemperatureField.setText(weather_temperature_now);
                 temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
                 tv_date_now.setText(date_now);
@@ -307,7 +311,9 @@ public class MainActivity extends AppCompatActivity {
                 text_gradus.setVisibility(View.VISIBLE);
 
                 // Icons
-                weatherIconAfterTomorrow.setText(iconToday);
+                weatherIconToday.setText(iconToday);
+                weatherIconTomorrow.setText(iconTomorrow);
+                weatherIconAfterTomorrow.setText(iconAfterTomorrow);
 
                 // List today
                 lvToday = findViewById(R.id.list_view_today);
