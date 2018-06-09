@@ -127,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Change from time
     public void changesFromCurrentTime(int currentTime){
+        // Icons
+        weatherIconToday = findViewById(R.id.icon_now);
+
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
         TextView text_now = findViewById(R.id.text_now);
         iconDayTaime = findViewById(R.id.icon_day_time);
@@ -138,18 +141,21 @@ public class MainActivity extends AppCompatActivity {
             iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
             text_now.setTextColor(Color.parseColor("#ea607e"));
             temp_now.setTextColor(Color.parseColor("#ea607e"));
+            weatherIconToday.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
             mainLayout.setBackground(getDrawable(R.drawable.day_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
             text_now.setTextColor(Color.parseColor("#46cbf7"));
             temp_now.setTextColor(Color.parseColor("#46cbf7"));
+            weatherIconToday.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
             mainLayout.setBackground(getDrawable(R.drawable.night_background));
             iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
             text_now.setTextColor(Color.parseColor("#b056b8"));
             temp_now.setTextColor(Color.parseColor("#b056b8"));
+            weatherIconToday.setTextColor(Color.parseColor("#b056b8"));
         }
     }
 
@@ -281,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
         tv_date_tomorrow = findViewById(R.id.date_tomorrow);
         tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
 
-        weatherIconToday = findViewById(R.id.icon_now);
         weatherIconTomorrow = findViewById(R.id.icon_tomorrow);
         weatherIconAfterTomorrow = findViewById(R.id.icon_after_tomorrow);
         weatherIconToday.setTypeface(weatherFont);
@@ -572,7 +577,7 @@ public class MainActivity extends AppCompatActivity {
                                     aftertomorrow_list.requestLayout();
                                     sc.post(new Runnable() {
                                         public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value /10); // these are your x and y coordinates
+                                            sc.scrollTo(0, sc.getScrollY() + value /20); // these are your x and y coordinates
                                         }
                                     });
                                 }
