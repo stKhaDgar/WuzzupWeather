@@ -1,6 +1,5 @@
 package com.example.stmak.wuzzupweather;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,7 +21,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -32,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTemperatureField;
     private TextView currentCountryField;
     private TextView temp_now, temp_tomorrow, temp_after_tomorrow, tv_date_now, tv_date_tomorrow, tv_date_after_tomorrow;
-    private LinearLayout today_layout, today_list, tomorrow_layout, tomorrow_list, aftertomorrow_layout, aftertomorrow_list;
+    private LinearLayout today_list, tomorrow_list, aftertomorrow_list;
     private boolean isBigToday, isBigTomorrow, isBigAfterTomorrow;
     private int heightTL, countToday, heightTomL, countTomorrow, heightAfterTomL, countAfterTomorrow;
 
@@ -322,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
         tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
+            @SuppressLint("SetTextI18n")
             public void processFinish(String city, String country,
                                       String weather_temperature_now, String[] arrToday, String date_now,
                                       String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
@@ -342,17 +340,17 @@ public class MainActivity extends AppCompatActivity {
                 text_gradus.setVisibility(View.VISIBLE);
 
                 // List today
-                lvToday = (ListView) findViewById(R.id.list_view_today);
+                lvToday = findViewById(R.id.list_view_today);
                 lvToday.setAdapter(new MyListAdapter(MainActivity.this, arrToday));
                 clickTodayList();
 
                 // List tomorrow
-                lvTomorrow = (ListView) findViewById(R.id.list_view_tomorrow);
+                lvTomorrow = findViewById(R.id.list_view_tomorrow);
                 lvTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrTomorrow));
                 clickTomorrowList();
 
                 // List tomorrow
-                lvAfterTomorrow = (ListView) findViewById(R.id.list_view_day_after_tomorrow);
+                lvAfterTomorrow = findViewById(R.id.list_view_day_after_tomorrow);
                 lvAfterTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrAfterTomorrow));
                 clickAfterTomorrowList();
 
@@ -374,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: finished this idea
-    private boolean isNetworkAvailable() {
+    public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
@@ -393,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
 
     // animation items forecast
     public void clickTodayList() {
-        today_layout = findViewById(R.id.today_layout);
+        LinearLayout today_layout = findViewById(R.id.today_layout);
         today_list = findViewById(R.id.today_list);
         today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTL = today_list.getMeasuredHeight();
@@ -412,8 +410,7 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     today_list.requestLayout();
                                 }
                             });
@@ -425,8 +422,7 @@ public class MainActivity extends AppCompatActivity {
                                 va1.setDuration(600);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        tomorrow_list.getLayoutParams().height = value.intValue();
+                                        tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         tomorrow_list.requestLayout();
                                     }
                                 });
@@ -438,8 +434,7 @@ public class MainActivity extends AppCompatActivity {
                                 va2.setDuration(600);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                        aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         aftertomorrow_list.requestLayout();
                                     }
                                 });
@@ -452,8 +447,7 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    today_list.getLayoutParams().height = value.intValue();
+                                    today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     today_list.requestLayout();
                                 }
                             });
@@ -466,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
     public void clickTomorrowList() {
-        tomorrow_layout = findViewById(R.id.tomorrow_layout);
+        LinearLayout tomorrow_layout = findViewById(R.id.tomorrow_layout);
         tomorrow_list = findViewById(R.id.tomorrow_list);
         tomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTomL = tomorrow_list.getMeasuredHeight();
@@ -484,8 +478,7 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    final Integer value = (Integer) animation.getAnimatedValue();
-                                    tomorrow_list.getLayoutParams().height = value.intValue();
+                                    tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     tomorrow_list.requestLayout();
                                 }
                             });
@@ -497,8 +490,7 @@ public class MainActivity extends AppCompatActivity {
                                 va1.setDuration(600);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        today_list.getLayoutParams().height = value.intValue();
+                                        today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         today_list.requestLayout();
                                     }
                                 });
@@ -510,8 +502,7 @@ public class MainActivity extends AppCompatActivity {
                                 va2.setDuration(600);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                        aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         aftertomorrow_list.requestLayout();
                                     }
                                 });
@@ -524,8 +515,7 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    tomorrow_list.getLayoutParams().height = value.intValue();
+                                    tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     tomorrow_list.requestLayout();
                                 }
                             });
@@ -538,7 +528,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
     public void clickAfterTomorrowList() {
-        aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
+        LinearLayout aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
         aftertomorrow_list = findViewById(R.id.day_after_tomorrow_list);
         aftertomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightAfterTomL = aftertomorrow_list.getMeasuredHeight();
@@ -552,7 +542,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!isBigAfterTomorrow){
 
-                            sc = (NestedScrollView) findViewById(R.id.nestedScrollView);
+                            sc = findViewById(R.id.nestedScrollView);
 
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightAfterTomL * countAfterTomorrow);
@@ -560,11 +550,11 @@ public class MainActivity extends AppCompatActivity {
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     final Integer value = (Integer) animation.getAnimatedValue();
-                                    aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                    aftertomorrow_list.getLayoutParams().height = value;
                                     aftertomorrow_list.requestLayout();
                                     sc.post(new Runnable() {
                                         public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value.intValue()/10); // these are your x and y coordinates
+                                            sc.scrollTo(0, sc.getScrollY() + value /10); // these are your x and y coordinates
                                         }
                                     });
                                 }
@@ -577,8 +567,7 @@ public class MainActivity extends AppCompatActivity {
                                 va1.setDuration(600);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        today_list.getLayoutParams().height = value.intValue();
+                                        today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         today_list.requestLayout();
                                     }
                                 });
@@ -590,8 +579,7 @@ public class MainActivity extends AppCompatActivity {
                                 va2.setDuration(600);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        Integer value = (Integer) animation.getAnimatedValue();
-                                        tomorrow_list.getLayoutParams().height = value.intValue();
+                                        tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         tomorrow_list.requestLayout();
                                     }
                                 });
@@ -604,8 +592,7 @@ public class MainActivity extends AppCompatActivity {
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    Integer value = (Integer) animation.getAnimatedValue();
-                                    aftertomorrow_list.getLayoutParams().height = value.intValue();
+                                    aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     aftertomorrow_list.requestLayout();
                                 }
                             });
