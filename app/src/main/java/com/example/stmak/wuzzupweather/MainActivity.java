@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
         animationsFromStart();
 
-
+        findViewById(R.id.list_view_today).setEnabled(false);
+        findViewById(R.id.list_view_tomorrow).setEnabled(false);
+        findViewById(R.id.list_view_day_after_tomorrow).setEnabled(false);
     }
 
     // Animations from start App
@@ -591,8 +593,7 @@ public class MainActivity extends AppCompatActivity {
                             if(isBigTomorrow) {
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        final Integer value = (Integer) animation.getAnimatedValue();
-                                        aftertomorrow_list.getLayoutParams().height = value;
+                                        aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                         aftertomorrow_list.requestLayout();
                                     }
                                 });

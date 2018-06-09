@@ -2,7 +2,6 @@ package com.example.stmak.wuzzupweather;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,15 +12,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 class WeatherFunction {
 
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
 
     private static final String OPEN_WEATHER_MAP_URL =
@@ -35,7 +32,7 @@ class WeatherFunction {
 
         // get current time from dt
         Date date = new java.util.Date(Long.parseLong(dt)*1000L);
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
         sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
         int nowHour = Integer.parseInt(sdf.format(date));
 
@@ -75,7 +72,7 @@ class WeatherFunction {
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
 
-        AsyncResponse delegate = null; //Call back interface
+        AsyncResponse delegate; //Call back interface
 
         placeIdTask(AsyncResponse asyncResponse) {
             delegate = asyncResponse; //Assigning call back interface through constructor
@@ -101,7 +98,7 @@ class WeatherFunction {
 
                     long unixSeconds = Long.parseLong(main.getString("dt"));
                     Date date = new java.util.Date(unixSeconds*1000L);
-                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH");
                     sdf.setTimeZone(java.util.TimeZone.getTimeZone(TimeZone.getDefault().toString()));
 
                     int nowHour = Integer.parseInt(sdf.format(date));
@@ -214,7 +211,7 @@ class WeatherFunction {
                     new InputStreamReader(connection.getInputStream()));
 
             StringBuilder json = new StringBuilder(1024);
-            String tmp="";
+            String tmp;
             while((tmp=reader.readLine())!=null)
                 json.append(tmp).append("\n");
             reader.close();

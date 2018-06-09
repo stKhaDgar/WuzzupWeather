@@ -277,6 +277,8 @@
                             android:id="@+id/today_list"
                             android:layout_width="match_parent"
                             android:layout_height="1sp"
+                            android:paddingEnd="8sp"
+                            android:paddingStart="8sp"
                             android:orientation="vertical">
 
                             <ListView
@@ -284,6 +286,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:focusable="false"
+                                android:isScrollContainer="false"
                                 android:focusableInTouchMode="false"
                                 android:scrollbars="none"
                                 android:visibility="invisible" />
@@ -350,6 +353,8 @@
                             android:id="@+id/tomorrow_list"
                             android:layout_width="match_parent"
                             android:layout_height="1sp"
+                            android:paddingEnd="8sp"
+                            android:paddingStart="8sp"
                             android:orientation="vertical">
 
                             <ListView
@@ -357,6 +362,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:focusable="false"
+                                android:isScrollContainer="false"
+                                android:nestedScrollingEnabled="false"
                                 android:focusableInTouchMode="false"
                                 android:scrollbars="none"
                                 android:visibility="invisible" />
@@ -423,6 +430,8 @@
                             android:id="@+id/day_after_tomorrow_list"
                             android:layout_width="match_parent"
                             android:layout_height="1sp"
+                            android:paddingEnd="8sp"
+                            android:paddingStart="8sp"
                             android:orientation="vertical">
 
                             <ListView
