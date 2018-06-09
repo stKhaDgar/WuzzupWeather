@@ -428,13 +428,22 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         if(!isBigToday){
+                            sc = findViewById(R.id.nestedScrollView);
+
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
+                                    final Integer value = (Integer) animation.getAnimatedValue();
+                                    today_list.getLayoutParams().height = value;
                                     today_list.requestLayout();
+
+                                    sc.post(new Runnable() {
+                                        public void run() {
+                                            sc.scrollTo(0, sc.getScrollY() + value/10); // these are your x and y coordinates
+                                        }
+                                    });
                                 }
                             });
                             va.start();
