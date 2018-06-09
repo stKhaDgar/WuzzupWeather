@@ -273,10 +273,11 @@
                             <ListView
                                 android:id="@+id/list_view_today"
                                 android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:focusable="false"
-                                android:visibility="invisible"
                                 android:focusableInTouchMode="false"
-                                android:layout_height="match_parent" />
+                                android:scrollbars="none"
+                                android:visibility="invisible" />
 
 
                         </LinearLayout>
@@ -339,6 +340,7 @@
                                 android:layout_height="match_parent"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
+                                android:scrollbars="none"
                                 android:visibility="invisible" />
 
 
@@ -399,10 +401,11 @@
                             <ListView
                                 android:id="@+id/list_view_day_after_tomorrow"
                                 android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:focusable="false"
-                                android:visibility="invisible"
                                 android:focusableInTouchMode="false"
-                                android:layout_height="match_parent" />
+                                android:scrollbars="none"
+                                android:visibility="invisible" />
 
 
                         </LinearLayout>

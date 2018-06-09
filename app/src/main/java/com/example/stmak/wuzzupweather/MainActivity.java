@@ -264,6 +264,134 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
+        if(bool) {
+            view.setClickable(true);
+            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
+            view.setEnabled(true);
+            view.setCursorVisible(true);
+            view.setSelectAllOnFocus(true);
+            view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+        else {
+            view.setClickable(false);
+            view.setDropDownHeight(0);
+            view.setEnabled(false);
+            view.setCursorVisible(false);
+            view.setSelectAllOnFocus(false);
+            view.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    // Shared Preferences
+    private void saveText() {
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPrefCity.edit();
+        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
+        ed.apply();
+    }
+    private void loadText() {
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
+        if(savedTextCity.length() == 0){
+            changeCity("Kiev");
+            changeCityEdit.setText(R.string.default_city);
+            currentCountryField.setText(R.string.default_country);
+        } else {
+            String[] ct = savedTextCity.trim().split("[;]");
+
+            changeCity(ct[0]);
+            changeCityEdit.setText(ct[0]);
+            currentCountryField.setText(ct[1]);
+        }
+    }
+
+    public void changeCity(String city){
+        // start animation
+        animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
+        animTemperature = AnimationUtils.loadAnimation(this, R.anim.alpha_temperature_anim);
+        animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
+        loadBar.startAnimation(animProgressBarStart);
+
+        currentTemperatureField = findViewById(R.id.current_temperature);
+        currentCountryField = findViewById(R.id.current_country);
+        temp_tomorrow = findViewById(R.id.temp_tomorrow);
+        temp_after_tomorrow = findViewById(R.id.temp_after_tomorrow);
+        tv_date_now = findViewById(R.id.date_now);
+        tv_date_tomorrow = findViewById(R.id.date_tomorrow);
+        tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
+        WeatherFunction.placeIdTask asyncTask;
+        asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
+            public void processFinish(String city, String country,
+                                      String weather_temperature_now, String[] arrToday, String date_now,
+                                      String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
+                                      String weather_temperature_after_tomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
+                currentTemperatureField.setText(weather_temperature_now);
+                temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
+                tv_date_now.setText(date_now);
+                temp_tomorrow.setText(weather_temperature_tomorrow + getString(R.string.temperature_gradus));
+                tv_date_tomorrow.setText(date_tomorrow);
+                temp_after_tomorrow.setText(weather_temperature_after_tomorrow + getString(R.string.temperature_gradus));
+                tv_date_after_tomorrow.setText(date_after_tomorrow);
+                changeCityEdit.setText(city);
+                currentCountryField.setText(country);
+                changeIcon.setClickable(true);
+                loadBar.setVisibility(View.INVISIBLE);
+                currentCountryField.setVisibility(View.VISIBLE);
+                currentTemperatureField.setVisibility(View.VISIBLE);
+                text_gradus.setVisibility(View.VISIBLE);
+
+                // List today
+                lvToday = (ListView) findViewById(R.id.list_view_today);
+                lvToday.setAdapter(new MyListAdapter(MainActivity.this, arrToday));
+                clickTodayList();
+
+                // List tomorrow
+                lvTomorrow = (ListView) findViewById(R.id.list_view_tomorrow);
+                lvTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrTomorrow));
+                clickTomorrowList();
+
+                // List tomorrow
+                lvAfterTomorrow = (ListView) findViewById(R.id.list_view_day_after_tomorrow);
+                lvAfterTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrAfterTomorrow));
+                clickAfterTomorrowList();
+
+                lvToday.setVisibility(View.VISIBLE);
+                lvTomorrow.setVisibility(View.VISIBLE);
+                lvAfterTomorrow.setVisibility(View.VISIBLE);
+
+                saveText();
+
+                currentCountryField.startAnimation(animCurrentCountry);
+                if(!currentTemperatureField.getText().toString().equals("")){
+                    currentTemperatureField.startAnimation(animTemperature);
+                }
+                text_gradus.startAnimation(animTemperature);
+            }
+        });
+
+        asyncTask.execute(city);
+    }
+
+    // TODO: finished this idea
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    // TODO: DO something with that функция чтобы проверять города по dataBase
+    public boolean checkCity (String city){
+        for (String City : Cities) {
+            if (City.equals(city))
+                return true;
+        }
+        return false;
+    }
+
+    // animation items forecast
     public void clickTodayList() {
         today_layout = findViewById(R.id.today_layout);
         today_list = findViewById(R.id.today_list);
@@ -337,7 +465,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
     public void clickTomorrowList() {
         tomorrow_layout = findViewById(R.id.tomorrow_layout);
         tomorrow_list = findViewById(R.id.tomorrow_list);
@@ -410,7 +537,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
     public void clickAfterTomorrowList() {
         aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
         aftertomorrow_list = findViewById(R.id.day_after_tomorrow_list);
@@ -490,132 +616,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-    }
-
-    public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
-        if(bool) {
-            view.setClickable(true);
-            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
-            view.setEnabled(true);
-            view.setCursorVisible(true);
-            view.setSelectAllOnFocus(true);
-            view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        }
-        else {
-            view.setClickable(false);
-            view.setDropDownHeight(0);
-            view.setEnabled(false);
-            view.setCursorVisible(false);
-            view.setSelectAllOnFocus(false);
-            view.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    // Shared Preferences
-    private void saveText() {
-        sPrefCity = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPrefCity.edit();
-        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
-        ed.apply();
-    }
-    private void loadText() {
-        sPrefCity = getPreferences(MODE_PRIVATE);
-        String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
-        if(savedTextCity.length() == 0){
-            changeCity("Kiev");
-            changeCityEdit.setText(R.string.default_city);
-            currentCountryField.setText(R.string.default_country);
-        } else {
-            String[] ct = savedTextCity.trim().split("[;]");
-
-            changeCity(ct[0]);
-            changeCityEdit.setText(ct[0]);
-            currentCountryField.setText(ct[1]);
-        }
-    }
-
-    // TODO: DO something with that функция чтобы проверять города по dataBase
-    public boolean checkCity (String city){
-        for (String City : Cities) {
-            if (City.equals(city))
-                return true;
-        }
-        return false;
-    }
-
-    public void changeCity(String city){
-        // start animation
-        animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
-        animTemperature = AnimationUtils.loadAnimation(this, R.anim.alpha_temperature_anim);
-        animProgressBarStart = AnimationUtils.loadAnimation(this, R.anim.progress_bar_start_anim);
-        loadBar.startAnimation(animProgressBarStart);
-
-        currentTemperatureField = findViewById(R.id.current_temperature);
-        currentCountryField = findViewById(R.id.current_country);
-        temp_tomorrow = findViewById(R.id.temp_tomorrow);
-        temp_after_tomorrow = findViewById(R.id.temp_after_tomorrow);
-        tv_date_now = findViewById(R.id.date_now);
-        tv_date_tomorrow = findViewById(R.id.date_tomorrow);
-        tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
-        WeatherFunction.placeIdTask asyncTask;
-        asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
-            public void processFinish(String city, String country,
-                                      String weather_temperature_now, String[] arrToday, String date_now,
-                                      String weather_temperature_tomorrow, String[] arrTomorrow, String date_tomorrow,
-                                      String weather_temperature_after_tomorrow, String[] arrAfterTomorrow, String date_after_tomorrow) {
-                currentTemperatureField.setText(weather_temperature_now);
-                temp_now.setText(weather_temperature_now + getString(R.string.temperature_gradus));
-                tv_date_now.setText(date_now);
-                temp_tomorrow.setText(weather_temperature_tomorrow + getString(R.string.temperature_gradus));
-                tv_date_tomorrow.setText(date_tomorrow);
-                temp_after_tomorrow.setText(weather_temperature_after_tomorrow + getString(R.string.temperature_gradus));
-                tv_date_after_tomorrow.setText(date_after_tomorrow);
-                changeCityEdit.setText(city);
-                currentCountryField.setText(country);
-                changeIcon.setClickable(true);
-                loadBar.setVisibility(View.INVISIBLE);
-                currentCountryField.setVisibility(View.VISIBLE);
-                currentTemperatureField.setVisibility(View.VISIBLE);
-                text_gradus.setVisibility(View.VISIBLE);
-
-                // List today
-                lvToday = (ListView) findViewById(R.id.list_view_today);
-                lvToday.setAdapter(new MyListAdapter(MainActivity.this, arrToday));
-                clickTodayList();
-
-                // List tomorrow
-                lvTomorrow = (ListView) findViewById(R.id.list_view_tomorrow);
-                lvTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrTomorrow));
-                clickTomorrowList();
-
-                // List tomorrow
-                lvAfterTomorrow = (ListView) findViewById(R.id.list_view_day_after_tomorrow);
-                lvAfterTomorrow.setAdapter(new MyListAdapter(MainActivity.this, arrAfterTomorrow));
-                clickAfterTomorrowList();
-
-                lvToday.setVisibility(View.VISIBLE);
-                lvTomorrow.setVisibility(View.VISIBLE);
-                lvAfterTomorrow.setVisibility(View.VISIBLE);
-
-                saveText();
-
-                currentCountryField.startAnimation(animCurrentCountry);
-                if(!currentTemperatureField.getText().toString().equals("")){
-                    currentTemperatureField.startAnimation(animTemperature);
-                }
-                text_gradus.startAnimation(animTemperature);
-            }
-        });
-
-        asyncTask.execute(city);
-    }
-
-    // TODO: finished this idea
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert connectivityManager != null;
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
