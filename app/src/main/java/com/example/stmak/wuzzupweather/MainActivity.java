@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
         animationsFromStart();
 
+
+        // TODO: finish this good. Добавить там где они впервые инициализируются
         findViewById(R.id.list_view_today).setEnabled(false);
         findViewById(R.id.list_view_tomorrow).setEnabled(false);
         findViewById(R.id.list_view_day_after_tomorrow).setEnabled(false);
