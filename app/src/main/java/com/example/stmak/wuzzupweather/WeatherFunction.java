@@ -57,7 +57,11 @@ class WeatherFunction {
 
     public interface AsyncResponse {
 
-        void processFinish(String output, String output2, String output3, String[] output4, String output5, String output6, String[] output7, String output8, String output9, String[] output10, String output11);
+        void processFinish(String output, String output2, String output3,
+                           String[] output4, String output5, String output6,
+                           String[] output7, String output8, String output9,
+                           String[] output10, String output11
+        );
     }
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
@@ -178,8 +182,6 @@ class WeatherFunction {
         return arr;
     }
 
-
-
     static JSONObject getWeatherJSON(String city){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, city));
@@ -210,5 +212,4 @@ class WeatherFunction {
             return null;
         }
     }
-
 }
