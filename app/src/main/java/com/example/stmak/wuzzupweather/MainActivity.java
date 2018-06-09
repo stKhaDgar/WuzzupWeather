@@ -259,48 +259,6 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
-        if(bool) {
-            view.setClickable(true);
-            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
-            view.setEnabled(true);
-            view.setCursorVisible(true);
-            view.setSelectAllOnFocus(true);
-            view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        }
-        else {
-            view.setClickable(false);
-            view.setDropDownHeight(0);
-            view.setEnabled(false);
-            view.setCursorVisible(false);
-            view.setSelectAllOnFocus(false);
-            view.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    // Shared Preferences
-    private void saveText() {
-        sPrefCity = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPrefCity.edit();
-        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
-        ed.apply();
-    }
-    private void loadText() {
-        sPrefCity = getPreferences(MODE_PRIVATE);
-        String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
-        if(savedTextCity.length() == 0){
-            changeCity("Kiev");
-            changeCityEdit.setText(R.string.default_city);
-            currentCountryField.setText(R.string.default_country);
-        } else {
-            String[] ct = savedTextCity.trim().split("[;]");
-
-            changeCity(ct[0]);
-            changeCityEdit.setText(ct[0]);
-            currentCountryField.setText(ct[1]);
-        }
-    }
-
     public void changeCity(String city){
         // start animation
         animationRotationCenter = AnimationUtils.loadAnimation(this, R.anim.rotate_change_icon);
@@ -385,6 +343,48 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+    
+    public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
+        if(bool) {
+            view.setClickable(true);
+            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
+            view.setEnabled(true);
+            view.setCursorVisible(true);
+            view.setSelectAllOnFocus(true);
+            view.setDropDownHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+        else {
+            view.setClickable(false);
+            view.setDropDownHeight(0);
+            view.setEnabled(false);
+            view.setCursorVisible(false);
+            view.setSelectAllOnFocus(false);
+            view.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    // Shared Preferences
+    private void saveText() {
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPrefCity.edit();
+        ed.putString(SAVED_TEXT, changeCityEdit.getText().toString() + "; " + currentCountryField.getText().toString());
+        ed.apply();
+    }
+    private void loadText() {
+        sPrefCity = getPreferences(MODE_PRIVATE);
+        String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
+        if(savedTextCity.length() == 0){
+            changeCity("Kiev");
+            changeCityEdit.setText(R.string.default_city);
+            currentCountryField.setText(R.string.default_country);
+        } else {
+            String[] ct = savedTextCity.trim().split("[;]");
+
+            changeCity(ct[0]);
+            changeCityEdit.setText(ct[0]);
+            currentCountryField.setText(ct[1]);
+        }
     }
 
     // animation items forecast
