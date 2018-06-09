@@ -107,6 +107,7 @@ class WeatherFunction {
                         arrtod++;
                     }
 
+                    // Arrays for forecast
                     String[] arrToday = getArrToday(json, arrtod);
                     String[] arrTomorrow = getArrToday(json, arrtod+8);
                     String[] arrAfterTomorrow = getArrToday(json, arrtod+16);
@@ -160,7 +161,7 @@ class WeatherFunction {
         }
     }
 
-    protected static String[] getArrToday(JSONObject json, int num) throws JSONException {
+    static String[] getArrToday(JSONObject json, int num) throws JSONException {
         String[] arr;
 
         arr = new String[num];
@@ -173,10 +174,12 @@ class WeatherFunction {
         }
 
         int i = 0;
+
         for(;temp < num; temp++){
             JSONObject main = json.getJSONArray("list").getJSONObject(temp);
-            String dateNow = main.getString("dt_txt");
-            arr[i] = dateNow;
+            String date = main.getString("dt_txt");
+            String[] tempArr = date.split("[ :]");
+            arr[i] = tempArr[1] + ":00";
             i++;
         }
         return arr;
