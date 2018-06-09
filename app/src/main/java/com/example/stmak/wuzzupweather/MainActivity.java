@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addListener();
         weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
+        WeatherFunction.context = this;
 
         // First layout (layout1) full Screen
         Point size = new Point();
@@ -306,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                 text_gradus.setVisibility(View.VISIBLE);
 
                 // Icons
-                weatherIconAfterTomorrow.setText(R.string.weather_rainy);
+                weatherIconAfterTomorrow.setText(iconToday);
 
                 // List today
                 lvToday = findViewById(R.id.list_view_today);
