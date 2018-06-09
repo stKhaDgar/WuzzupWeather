@@ -26,16 +26,18 @@ class WeatherFunction {
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
-    static String setWeatherIcon(int actualId, long sunrise, long sunset){
+    static String setWeatherIcon(int actualId){
         int id = actualId / 100;
         String icon = "";
+        long currentTime = new Date().getTime();
+        Log.i("CURRENTTIME", currentTime+"");
         if(actualId == 800){
-            long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset) {
-                icon = "&#xf00d;";
-            } else {
-                icon = "&#xf02e;";
-            }
+
+//            if(currentTime>=sunrise && currentTime<sunset) {
+//                icon = "&#xf00d;";
+//            } else {
+//                icon = "&#xf02e;";
+//            }
         } else {
             switch(id) {
                 case 2 : icon = "&#xf01e;";
@@ -69,7 +71,7 @@ class WeatherFunction {
         AsyncResponse delegate = null; //Call back interface
 
         placeIdTask(AsyncResponse asyncResponse) {
-            delegate = asyncResponse;//Assigning call back interface through constructor
+            delegate = asyncResponse; //Assigning call back interface through constructor
         }
 
         @Override
@@ -137,9 +139,9 @@ class WeatherFunction {
 //                    String humidity = main.getString("humidity") + "%";
 //                    String pressure = main.getString("pressure") + " hPa";
 //
-//                    String iconText = setWeatherIcon(details.getInt("id"),
-//                            json.getJSONObject("sys").getLong("sunrise") * 1000,
-//                            json.getJSONObject("sys").getLong("sunset") * 1000);
+                    String iconTextToday = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"));
+
+                    Log.i("CURRENTTIMEICON", iconTextToday);
 
                     delegate.processFinish(
                             city,

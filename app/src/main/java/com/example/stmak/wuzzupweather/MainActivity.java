@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -38,6 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private TextView text_gradus;
     private ProgressBar loadBar;
+    private Typeface weatherFont;
 
     // Change City
     private ImageView changeIcon;
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         addListener();
+        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
 
         // First layout (layout1) full Screen
         Point size = new Point();
@@ -273,6 +276,12 @@ public class MainActivity extends AppCompatActivity {
         tv_date_now = findViewById(R.id.date_now);
         tv_date_tomorrow = findViewById(R.id.date_tomorrow);
         tv_date_after_tomorrow = findViewById(R.id.date_after_tomorrow);
+
+        TextView weatherIcon = findViewById(R.id.icon_after_tomorrow);
+
+        weatherIcon.setTypeface(weatherFont);
+        weatherIcon.setText(R.string.weather_rainy);
+
         WeatherFunction.placeIdTask asyncTask;
         asyncTask = new WeatherFunction.placeIdTask(new WeatherFunction.AsyncResponse() {
             @SuppressLint("SetTextI18n")
@@ -344,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    
+
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
             view.setClickable(true);
