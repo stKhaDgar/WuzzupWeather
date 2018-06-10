@@ -517,21 +517,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!isBigTomorrow){
 
-                            weatherIconTomorrow.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    weatherIconTomorrow.animate().alpha(0.f).setDuration(600).setListener(
-                                            new AnimatorListenerAdapter() {
-                                                @Override
-                                                public void onAnimationEnd(Animator animation) {
-                                                    // superfluous restoration
-                                                    weatherIconTomorrow.setVisibility(View.GONE);
-                                                    weatherIconTomorrow.setAlpha(1.f);
-                                                }
-                                            }
-                                    );
-                                }
-                            });
+                            hideElements(true, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
 
 
                             sc = findViewById(R.id.nestedScrollView);
@@ -580,6 +566,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else{
+
+                            hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -687,5 +676,39 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void hideElements(boolean bool, final TextView date, final TextView icon, final TextView temp){
+        if(bool){
+
+            ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 0.f);
+            va.setDuration(600);
+            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    date.setAlpha((Float) animation.getAnimatedValue());
+                    icon.setAlpha((Float) animation.getAnimatedValue());
+                    temp.setAlpha((Float) animation.getAnimatedValue());
+                    date.requestLayout();
+                    icon.requestLayout();
+                    temp.requestLayout();
+                }
+            });
+            va.start();
+        }
+        else {
+            ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 1.f);
+            va.setDuration(600);
+            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    date.setAlpha((Float) animation.getAnimatedValue());
+                    icon.setAlpha((Float) animation.getAnimatedValue());
+                    temp.setAlpha((Float) animation.getAnimatedValue());
+                    date.requestLayout();
+                    icon.requestLayout();
+                    temp.requestLayout();
+                }
+            });
+            va.start();
+        }
     }
 }

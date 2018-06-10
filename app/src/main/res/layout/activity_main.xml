@@ -221,8 +221,7 @@
                         <LinearLayout
                             android:id="@+id/today_layout"
                             android:layout_width="match_parent"
-
-                            android:layout_height="match_parent"
+                            android:layout_height="64sp"
                             android:background="@drawable/items_weather_from_day"
                             android:orientation="horizontal">
 
@@ -297,7 +296,7 @@
                         <LinearLayout
                             android:id="@+id/tomorrow_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="55sp"
                             android:background="@drawable/items_weather_from_day"
                             android:orientation="horizontal">
 
@@ -374,7 +373,7 @@
                         <LinearLayout
                             android:id="@+id/after_tomorrow_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="55sp"
                             android:background="@drawable/items_weather_from_day"
                             android:orientation="horizontal">
 
