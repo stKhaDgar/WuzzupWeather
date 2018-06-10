@@ -436,6 +436,8 @@ public class MainActivity extends AppCompatActivity {
 
                             if(!isBigToday){
 
+                                hideElements(true, tv_date_now, weatherIconToday, temp_now);
+
                                 sc = findViewById(R.id.nestedScrollView);
 
                                 v.setClickable(false);
@@ -459,6 +461,9 @@ public class MainActivity extends AppCompatActivity {
                                 isBigToday = true;
 
                                 if(isBigTomorrow) {
+
+                                    hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+
                                     ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                                     va1.setDuration(600);
                                     va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -471,6 +476,9 @@ public class MainActivity extends AppCompatActivity {
                                     isBigTomorrow = false;
                                 }
                                 if(isBigAfterTomorrow){
+
+                                    hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+
                                     ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                                     va2.setDuration(600);
                                     va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -484,6 +492,9 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             else{
+
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va.setDuration(600);
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -519,7 +530,6 @@ public class MainActivity extends AppCompatActivity {
 
                             hideElements(true, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
 
-
                             sc = findViewById(R.id.nestedScrollView);
 
                             v.setClickable(false);
@@ -541,6 +551,9 @@ public class MainActivity extends AppCompatActivity {
                             isBigTomorrow = true;
 
                             if(isBigToday) {
+
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va1.setDuration(600);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -553,6 +566,9 @@ public class MainActivity extends AppCompatActivity {
                                 isBigToday = false;
                             }
                             if(isBigAfterTomorrow){
+
+                                hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+
                                 ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                                 va2.setDuration(600);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -600,6 +616,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!isBigAfterTomorrow){
 
+                            hideElements(true, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+
                             sc = findViewById(R.id.nestedScrollView);
 
                             v.setClickable(false);
@@ -636,6 +654,9 @@ public class MainActivity extends AppCompatActivity {
                             isBigAfterTomorrow = true;
 
                             if(isBigToday) {
+
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va1.setDuration(600);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -648,6 +669,9 @@ public class MainActivity extends AppCompatActivity {
                                 isBigToday = false;
                             }
                             if(isBigTomorrow){
+
+                                hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+
                                 ValueAnimator va2 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                                 va2.setDuration(600);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -661,6 +685,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else{
+
+                            hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+
                             ValueAnimator va = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                             va.setDuration(600);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
