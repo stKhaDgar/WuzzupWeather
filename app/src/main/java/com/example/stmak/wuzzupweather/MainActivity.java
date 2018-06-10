@@ -1,5 +1,7 @@
 package com.example.stmak.wuzzupweather;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -433,10 +435,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             if(!isBigToday){
+
                                 sc = findViewById(R.id.nestedScrollView);
 
                                 v.setClickable(false);
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
+
                                 va.setDuration(600);
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -512,6 +516,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(!isBigTomorrow){
+                            
+                            weatherIconTomorrow.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    weatherIconTomorrow.animate().alpha(0.f).setListener(
+                                            new AnimatorListenerAdapter() {
+                                                @Override
+                                                public void onAnimationEnd(Animator animation) {
+                                                    // superfluous restoration
+                                                    weatherIconTomorrow.setVisibility(View.GONE);
+                                                    weatherIconTomorrow.setAlpha(1.f);
+                                                }
+                                            }
+                                    );
+                                }
+                            });
+
+
                             sc = findViewById(R.id.nestedScrollView);
 
                             v.setClickable(false);
