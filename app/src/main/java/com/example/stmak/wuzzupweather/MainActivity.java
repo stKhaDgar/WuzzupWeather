@@ -2,6 +2,8 @@ package com.example.stmak.wuzzupweather;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,13 +11,17 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -72,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
     // Save last city
     final String SAVED_TEXT = "";
     SharedPreferences sPrefCity;
+
+    // Layouts
+    private LinearLayout today_layout, tomorrow_layout, aftertomorrow_layout;
+    private TextView text_now, text_after_tomorrow, text_tomorrow;
 
     // List
     private ListView lvToday, lvTomorrow, lvAfterTomorrow;
@@ -138,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
         weatherIconToday = findViewById(R.id.icon_now);
 
         ConstraintLayout mainLayout = findViewById(R.id.main_layout);
-        TextView text_now = findViewById(R.id.text_now);
+        text_now = findViewById(R.id.text_now);
+        text_tomorrow = findViewById(R.id.text_tomorrow);
+        text_after_tomorrow = findViewById(R.id.text_day_after_tomorrow);
         iconDayTaime = findViewById(R.id.icon_day_time);
         temp_now = findViewById(R.id.temp_now);
         loadBar = findViewById(R.id.load);
@@ -421,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
 
     // animation items forecast
     public void clickTodayList() {
-        LinearLayout today_layout = findViewById(R.id.today_layout);
+        today_layout = findViewById(R.id.today_layout);
         today_list = findViewById(R.id.today_list);
         today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTL = today_list.getMeasuredHeight();
@@ -436,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(!isBigToday){
 
-                                hideElements(true, tv_date_now, weatherIconToday, temp_now);
+                                hideElements(true, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 sc = findViewById(R.id.nestedScrollView);
 
@@ -462,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(isBigTomorrow) {
 
-                                    hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+                                    hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                                     ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                                     va1.setDuration(600);
@@ -477,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 if(isBigAfterTomorrow){
 
-                                    hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+                                    hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                                     ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                                     va2.setDuration(600);
@@ -493,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else{
 
-                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va.setDuration(600);
@@ -514,7 +526,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void clickTomorrowList() {
-        LinearLayout tomorrow_layout = findViewById(R.id.tomorrow_layout);
+        tomorrow_layout = findViewById(R.id.tomorrow_layout);
         tomorrow_list = findViewById(R.id.tomorrow_list);
         tomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTomL = tomorrow_list.getMeasuredHeight();
@@ -528,7 +540,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!isBigTomorrow){
 
-                            hideElements(true, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+                            hideElements(true, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                             sc = findViewById(R.id.nestedScrollView);
 
@@ -552,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(isBigToday) {
 
-                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va1.setDuration(600);
@@ -567,7 +579,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if(isBigAfterTomorrow){
 
-                                hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+                                hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                                 ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                                 va2.setDuration(600);
@@ -583,7 +595,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else{
 
-                            hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+                            hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                             va.setDuration(600);
@@ -602,7 +614,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
     public void clickAfterTomorrowList() {
-        LinearLayout aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
+        aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
         aftertomorrow_list = findViewById(R.id.day_after_tomorrow_list);
         aftertomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightAfterTomL = aftertomorrow_list.getMeasuredHeight();
@@ -616,7 +628,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!isBigAfterTomorrow){
 
-                            hideElements(true, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+                            hideElements(true, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                             sc = findViewById(R.id.nestedScrollView);
 
@@ -655,7 +667,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(isBigToday) {
 
-                                hideElements(false, tv_date_now, weatherIconToday, temp_now);
+                                hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
                                 va1.setDuration(600);
@@ -670,7 +682,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if(isBigTomorrow){
 
-                                hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow);
+                                hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                                 ValueAnimator va2 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
                                 va2.setDuration(600);
@@ -686,7 +698,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else{
 
-                            hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow);
+                            hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                             ValueAnimator va = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
                             va.setDuration(600);
@@ -705,8 +717,12 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void hideElements(boolean bool, final TextView date, final TextView icon, final TextView temp){
+    public void hideElements(boolean bool, final TextView date, final TextView icon, final TextView temp, final TextView text){
+
         if(bool){
+            text.setGravity(Gravity.CENTER);
+            icon.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            temp.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
 
             ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 0.f);
             va.setDuration(600);
@@ -723,6 +739,11 @@ public class MainActivity extends AppCompatActivity {
             va.start();
         }
         else {
+            text.setGravity(Gravity.START);
+            final float scale = this.getResources().getDisplayMetrics().density;
+            icon.setLayoutParams(new LinearLayout.LayoutParams((int) (30 * scale + 0.5f), ViewGroup.LayoutParams.MATCH_PARENT));
+            temp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
             ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 1.f);
             va.setDuration(600);
             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -737,5 +758,7 @@ public class MainActivity extends AppCompatActivity {
             });
             va.start();
         }
+
+
     }
 }

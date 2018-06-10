@@ -255,7 +255,7 @@
 
                             <TextView
                                 android:id="@+id/icon_now"
-                                android:layout_width="30sp"
+                                android:layout_width="30dp"
                                 android:layout_height="match_parent"
                                 android:gravity="right|center_vertical"
                                 android:paddingEnd="8sp"
@@ -308,7 +308,7 @@
 
                                 <TextView
                                     android:id="@+id/text_tomorrow"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:paddingLeft="4sp"
                                     android:paddingRight="4sp"
@@ -385,7 +385,7 @@
 
                                 <TextView
                                     android:id="@+id/text_day_after_tomorrow"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:paddingLeft="4sp"
                                     android:paddingRight="4sp"
