@@ -516,11 +516,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(!isBigTomorrow){
-                            
+
                             weatherIconTomorrow.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    weatherIconTomorrow.animate().alpha(0.f).setListener(
+                                    weatherIconTomorrow.animate().alpha(0.f).setDuration(600).setListener(
                                             new AnimatorListenerAdapter() {
                                                 @Override
                                                 public void onAnimationEnd(Animator animation) {
