@@ -114,9 +114,9 @@ class WeatherFunction {
                     }
 
                     // Arrays for forecast
-                    String[] arrToday = getArrToday(json, arrtod);
-                    String[] arrTomorrow = getArrToday(json, arrtod+8);
-                    String[] arrAfterTomorrow = getArrToday(json, arrtod+16);
+                    String[] arrToday = getArr(json, arrtod);
+                    String[] arrTomorrow = getArr(json, arrtod+8);
+                    String[] arrAfterTomorrow = getArr(json, arrtod+16);
 
                     JSONObject mainTomorrow = json.getJSONArray("list").getJSONObject(count);
                     JSONObject mainAfterTomorrow = json.getJSONArray("list").getJSONObject(count + 8);
@@ -175,7 +175,7 @@ class WeatherFunction {
         }
     }
 
-    static String[] getArrToday(JSONObject json, int num) throws JSONException {
+    static String[] getArr(JSONObject json, int num) throws JSONException {
         String[] arr;
 
         arr = new String[num];
@@ -193,7 +193,7 @@ class WeatherFunction {
             JSONObject main = json.getJSONArray("list").getJSONObject(temp);
             String iconText = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"),
                     main.getString("dt"));
-            String temperature = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
+            @SuppressLint("DefaultLocale") String temperature = String.format("%.0f", main.getJSONObject("main").getDouble("temp"));
             String date = main.getString("dt_txt");
             String[] tempArr = date.split("[ :]");
             arr[i] = tempArr[1] + ":00;" + iconText + ";" + temperature + context.getString(R.string.temperature_gradus);
