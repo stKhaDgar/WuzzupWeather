@@ -191,9 +191,11 @@ class WeatherFunction {
 
         for(;temp < num; temp++){
             JSONObject main = json.getJSONArray("list").getJSONObject(temp);
+            String iconTextToday = setWeatherIcon(main.getJSONArray("weather").getJSONObject(0).getInt("id"),
+                    main.getString("dt"));
             String date = main.getString("dt_txt");
             String[] tempArr = date.split("[ :]");
-            arr[i] = tempArr[1] + ":00";
+            arr[i] = tempArr[1] + ":00 ; " + iconTextToday;
             i++;
         }
         return arr;

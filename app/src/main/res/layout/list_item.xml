@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/Tvcheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="12sp"
         android:text="Hey"
         android:textColor="#9b9b9b"
         android:textSize="14sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/icon_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="right|center_vertical"
+        android:paddingEnd="8sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#9b9b9b"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/temp_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="14sp" />
+
+</LinearLayout>

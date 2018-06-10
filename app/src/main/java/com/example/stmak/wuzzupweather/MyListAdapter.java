@@ -31,7 +31,12 @@ public class MyListAdapter extends BaseAdapter{
         }
 
         TextView tv = customView.findViewById(R.id.Tvcheck);
-        tv.setText(arr[position]);
+        TextView icon = customView.findViewById(R.id.icon_list);
+        String[] tempArr = arr[position].split("[;]");
+
+        tv.setText(tempArr[0]);
+        icon.setText(tempArr[1]);
+
         return customView;
     }
 
