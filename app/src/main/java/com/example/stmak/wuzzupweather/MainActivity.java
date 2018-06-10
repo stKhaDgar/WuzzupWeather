@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -425,75 +426,77 @@ public class MainActivity extends AppCompatActivity {
         isBigToday = false;
 
         countToday = lvToday.getCount();
+        if(countToday > 0){
+            today_layout.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-        today_layout.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                            if(!isBigToday){
+                                sc = findViewById(R.id.nestedScrollView);
 
-                        if(!isBigToday){
-                            sc = findViewById(R.id.nestedScrollView);
+                                v.setClickable(false);
+                                ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
+                                va.setDuration(600);
+                                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                    public void onAnimationUpdate(ValueAnimator animation) {
+                                        final Integer value = (Integer) animation.getAnimatedValue();
+                                        today_list.getLayoutParams().height = value;
+                                        today_list.requestLayout();
 
-                            v.setClickable(false);
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
-                            va.setDuration(600);
-                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    final Integer value = (Integer) animation.getAnimatedValue();
-                                    today_list.getLayoutParams().height = value;
-                                    today_list.requestLayout();
+                                        sc.post(new Runnable() {
+                                            public void run() {
+                                                sc.scrollTo(0, sc.getScrollY() + value/10); // these are your x and y coordinates
+                                            }
+                                        });
+                                    }
+                                });
+                                va.start();
+                                isBigToday = true;
 
-                                    sc.post(new Runnable() {
-                                        public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value/10); // these are your x and y coordinates
+                                if(isBigTomorrow) {
+                                    ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
+                                    va1.setDuration(600);
+                                    va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                        public void onAnimationUpdate(ValueAnimator animation) {
+                                            tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
+                                            tomorrow_list.requestLayout();
                                         }
                                     });
+                                    va1.start();
+                                    isBigTomorrow = false;
                                 }
-                            });
-                            va.start();
-                            isBigToday = true;
-
-                            if(isBigTomorrow) {
-                                ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
-                                va1.setDuration(600);
-                                va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                if(isBigAfterTomorrow){
+                                    ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
+                                    va2.setDuration(600);
+                                    va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                        public void onAnimationUpdate(ValueAnimator animation) {
+                                            aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
+                                            aftertomorrow_list.requestLayout();
+                                        }
+                                    });
+                                    va2.start();
+                                    isBigAfterTomorrow = false;
+                                }
+                            }
+                            else{
+                                ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
+                                va.setDuration(600);
+                                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
-                                        tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                        tomorrow_list.requestLayout();
+                                        today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
+                                        today_list.requestLayout();
                                     }
                                 });
-                                va1.start();
-                                isBigTomorrow = false;
+                                va.start();
+                                isBigToday = false;
                             }
-                            if(isBigAfterTomorrow){
-                                ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
-                                va2.setDuration(600);
-                                va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                    public void onAnimationUpdate(ValueAnimator animation) {
-                                        aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                        aftertomorrow_list.requestLayout();
-                                    }
-                                });
-                                va2.start();
-                                isBigAfterTomorrow = false;
-                            }
+                            v.setClickable(true);
                         }
-                        else{
-                            ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                            va.setDuration(600);
-                            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                    today_list.requestLayout();
-                                }
-                            });
-                            va.start();
-                            isBigToday = false;
-                        }
-                        v.setClickable(true);
                     }
-                }
-        );
+            );
+        }
+
     }
     public void clickTomorrowList() {
         LinearLayout tomorrow_layout = findViewById(R.id.tomorrow_layout);

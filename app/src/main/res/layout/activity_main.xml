@@ -256,11 +256,11 @@
 
                             <TextView
                                 android:id="@+id/icon_now"
-                                android:layout_width="wrap_content"
+                                android:layout_width="30sp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:gravity="right|center_vertical"
                                 android:paddingEnd="8sp"
+                                android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
                                 android:textSize="16sp" />
@@ -332,11 +332,11 @@
 
                             <TextView
                                 android:id="@+id/icon_tomorrow"
-                                android:layout_width="wrap_content"
+                                android:layout_width="30sp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:gravity="right|center_vertical"
                                 android:paddingEnd="8sp"
+                                android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
                                 android:textSize="16sp" />
@@ -408,11 +408,11 @@
 
                             <TextView
                                 android:id="@+id/icon_after_tomorrow"
-                                android:layout_width="wrap_content"
+                                android:layout_width="30sp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:gravity="right|center_vertical"
                                 android:paddingEnd="8sp"
+                                android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
                                 android:textSize="16sp" />

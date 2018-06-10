@@ -186,6 +186,10 @@ class WeatherFunction {
             temp = num - 8;
             arr = new String[8];
         }
+        else{
+            temp = 1;
+            arr = new String[num-temp];
+        }
 
         int i = 0;
 
