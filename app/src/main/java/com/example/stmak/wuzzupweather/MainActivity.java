@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private Animation animCurrentCountry;
     private Animation animProgressBarStart;
     private ImageView iconDayTaime;
+    private final int DURATION = 800;
 
     // Save last city
     final String SAVED_TEXT = "";
@@ -455,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
                                 v.setClickable(false);
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
 
-                                va.setDuration(600);
+                                va.setDuration(DURATION);
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         final Integer value = (Integer) animation.getAnimatedValue();
@@ -477,7 +478,7 @@ public class MainActivity extends AppCompatActivity {
                                     hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                                     ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
-                                    va1.setDuration(600);
+                                    va1.setDuration(DURATION);
                                     va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                         public void onAnimationUpdate(ValueAnimator animation) {
                                             tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -492,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
                                     hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                                     ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
-                                    va2.setDuration(600);
+                                    va2.setDuration(DURATION);
                                     va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                         public void onAnimationUpdate(ValueAnimator animation) {
                                             aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -508,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
                                 hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                                va.setDuration(600);
+                                va.setDuration(DURATION);
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -546,7 +547,7 @@ public class MainActivity extends AppCompatActivity {
 
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countTomorrow);
-                            va.setDuration(600);
+                            va.setDuration(DURATION);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     final Integer value = (Integer) animation.getAnimatedValue();
@@ -554,7 +555,7 @@ public class MainActivity extends AppCompatActivity {
                                     tomorrow_list.requestLayout();
                                     sc.post(new Runnable() {
                                         public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value /10); // these are your x and y coordinates
+                                            sc.scrollTo(0, sc.getScrollY() + value ); // these are your x and y coordinates
                                         }
                                     });
                                 }
@@ -567,7 +568,7 @@ public class MainActivity extends AppCompatActivity {
                                 hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                                va1.setDuration(600);
+                                va1.setDuration(DURATION);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -582,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
                                 hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                                 ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
-                                va2.setDuration(600);
+                                va2.setDuration(DURATION);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -598,7 +599,7 @@ public class MainActivity extends AppCompatActivity {
                             hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
-                            va.setDuration(600);
+                            va.setDuration(DURATION);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -634,7 +635,7 @@ public class MainActivity extends AppCompatActivity {
 
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightAfterTomL * countAfterTomorrow);
-                            va.setDuration(600);
+                            va.setDuration(DURATION);
 
                             if(isBigTomorrow) {
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -670,7 +671,7 @@ public class MainActivity extends AppCompatActivity {
                                 hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
 
                                 ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                                va1.setDuration(600);
+                                va1.setDuration(DURATION);
                                 va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -685,7 +686,7 @@ public class MainActivity extends AppCompatActivity {
                                 hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
 
                                 ValueAnimator va2 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
-                                va2.setDuration(600);
+                                va2.setDuration(DURATION);
                                 va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
@@ -701,7 +702,7 @@ public class MainActivity extends AppCompatActivity {
                             hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
 
                             ValueAnimator va = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
-                            va.setDuration(600);
+                            va.setDuration(DURATION);
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
