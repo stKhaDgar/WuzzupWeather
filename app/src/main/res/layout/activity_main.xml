@@ -226,7 +226,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -243,14 +243,15 @@
                                 <TextView
                                     android:id="@+id/date_now"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="0dp"
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif-condensed"
                                     android:paddingBottom="10sp"
                                     android:paddingLeft="4sp"
                                     android:paddingRight="4sp"
                                     android:textColor="#b9b9b9"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    tools:ignore="NestedWeights" />
                             </LinearLayout>
 
                             <TextView
@@ -262,7 +263,8 @@
                                 android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                             <TextView
                                 android:id="@+id/temp_now"
@@ -278,7 +280,8 @@
                             android:layout_height="1sp"
                             android:paddingEnd="8sp"
                             android:paddingStart="8sp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="SmallSp">
 
                             <ListView
                                 android:id="@+id/list_view_today"
@@ -301,7 +304,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -318,14 +321,15 @@
                                 <TextView
                                     android:id="@+id/date_tomorrow"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="0dp"
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif-condensed"
                                     android:paddingBottom="10sp"
                                     android:paddingLeft="4sp"
                                     android:paddingRight="4sp"
                                     android:textColor="#b9b9b9"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    tools:ignore="NestedWeights" />
 
                             </LinearLayout>
 
@@ -338,7 +342,8 @@
                                 android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                             <TextView
                                 android:id="@+id/temp_tomorrow"
@@ -354,7 +359,8 @@
                             android:layout_height="1sp"
                             android:paddingEnd="8sp"
                             android:paddingStart="8sp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="SmallSp">
 
                             <ListView
                                 android:id="@+id/list_view_tomorrow"
@@ -378,7 +384,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -414,7 +420,8 @@
                                 android:textAlignment="center"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="#9b9b9b"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                             <TextView
                                 android:id="@+id/temp_after_tomorrow"
@@ -431,7 +438,8 @@
                             android:layout_height="1sp"
                             android:paddingEnd="8sp"
                             android:paddingStart="8sp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="SmallSp">
 
                             <ListView
                                 android:id="@+id/list_view_day_after_tomorrow"
