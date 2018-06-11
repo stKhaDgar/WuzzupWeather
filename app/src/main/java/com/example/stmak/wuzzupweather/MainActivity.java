@@ -457,6 +457,7 @@ public class MainActivity extends AppCompatActivity {
                                 ValueAnimator va = ValueAnimator.ofInt(today_list.getHeight(), heightTL * countToday);
 
                                 va.setDuration(DURATION);
+
                                 va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         final Integer value = (Integer) animation.getAnimatedValue();
@@ -547,7 +548,9 @@ public class MainActivity extends AppCompatActivity {
 
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightTomL * countTomorrow);
+
                             va.setDuration(DURATION);
+
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     final Integer value = (Integer) animation.getAnimatedValue();
@@ -555,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
                                     tomorrow_list.requestLayout();
                                     sc.post(new Runnable() {
                                         public void run() {
-                                            sc.scrollTo(0, sc.getScrollY() + value ); // these are your x and y coordinates
+                                            sc.scrollTo(0, sc.getBottom()); // these are your x and y coordinates
                                         }
                                     });
                                 }
@@ -635,6 +638,7 @@ public class MainActivity extends AppCompatActivity {
 
                             v.setClickable(false);
                             ValueAnimator va = ValueAnimator.ofInt(tomorrow_list.getHeight(), heightAfterTomL * countAfterTomorrow);
+
                             va.setDuration(DURATION);
 
                             if(isBigTomorrow) {
@@ -725,16 +729,16 @@ public class MainActivity extends AppCompatActivity {
             icon.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
             temp.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
 
-            ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 0.f);
-            va.setDuration(600);
+            ValueAnimator va = ValueAnimator.ofFloat(1.f, 0.f);
+            va.setDuration(DURATION);
             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     date.setAlpha((Float) animation.getAnimatedValue());
                     icon.setAlpha((Float) animation.getAnimatedValue());
                     temp.setAlpha((Float) animation.getAnimatedValue());
-                    date.requestLayout();
-                    icon.requestLayout();
-                    temp.requestLayout();
+//                    date.requestLayout();
+//                    icon.requestLayout();
+//                    temp.requestLayout();
                 }
             });
             va.start();
@@ -746,7 +750,7 @@ public class MainActivity extends AppCompatActivity {
             temp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 1.f);
-            va.setDuration(600);
+            va.setDuration(DURATION);
             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     date.setAlpha((Float) animation.getAnimatedValue());
