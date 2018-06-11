@@ -1,9 +1,5 @@
 package com.example.stmak.wuzzupweather;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,15 +7,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -37,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
     final String SAVED_TEXT = "";
     SharedPreferences sPrefCity;
 
-    // Layouts
-    private LinearLayout today_layout, tomorrow_layout, aftertomorrow_layout;
     private TextView text_now, text_after_tomorrow, text_tomorrow;
 
     // List
@@ -434,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
 
     // animation items forecast
     public void clickTodayList() {
-        today_layout = findViewById(R.id.today_layout);
+        LinearLayout today_layout = findViewById(R.id.today_layout);
         today_list = findViewById(R.id.today_list);
         today_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTL = today_list.getMeasuredHeight();
@@ -528,7 +518,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void clickTomorrowList() {
-        tomorrow_layout = findViewById(R.id.tomorrow_layout);
+        LinearLayout tomorrow_layout = findViewById(R.id.tomorrow_layout);
         tomorrow_list = findViewById(R.id.tomorrow_list);
         tomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightTomL = tomorrow_list.getMeasuredHeight();
@@ -553,8 +543,7 @@ public class MainActivity extends AppCompatActivity {
 
                             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    final Integer value = (Integer) animation.getAnimatedValue();
-                                    tomorrow_list.getLayoutParams().height = value;
+                                    tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
                                     tomorrow_list.requestLayout();
                                     sc.post(new Runnable() {
                                         public void run() {
@@ -618,7 +607,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
     public void clickAfterTomorrowList() {
-        aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
+        LinearLayout aftertomorrow_layout = findViewById(R.id.after_tomorrow_layout);
         aftertomorrow_list = findViewById(R.id.day_after_tomorrow_list);
         aftertomorrow_list.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         heightAfterTomL = aftertomorrow_list.getMeasuredHeight();
