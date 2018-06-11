@@ -724,30 +724,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideElements(boolean bool, final TextView date, final TextView icon, final TextView temp, final TextView text){
 
+        LinearLayout layout = findViewById(R.id.today_layout);
+        final float scale = this.getResources().getDisplayMetrics().density;
+
         if(bool){
             text.setGravity(Gravity.CENTER);
-            icon.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-            temp.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            text.setPadding(layout.getWidth()/2 - text.getWidth()/2,text.getPaddingTop(),text.getPaddingRight(),text.getPaddingBottom());
 
-            ValueAnimator va = ValueAnimator.ofFloat(1.f, 0.f);
+            ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 0.f);
             va.setDuration(DURATION);
             va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     date.setAlpha((Float) animation.getAnimatedValue());
                     icon.setAlpha((Float) animation.getAnimatedValue());
                     temp.setAlpha((Float) animation.getAnimatedValue());
-//                    date.requestLayout();
-//                    icon.requestLayout();
-//                    temp.requestLayout();
+                    date.requestLayout();
+                    icon.requestLayout();
+                    temp.requestLayout();
                 }
             });
             va.start();
         }
         else {
             text.setGravity(Gravity.START);
-            final float scale = this.getResources().getDisplayMetrics().density;
-            icon.setLayoutParams(new LinearLayout.LayoutParams((int) (30 * scale + 0.5f), ViewGroup.LayoutParams.MATCH_PARENT));
-            temp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            text.setPadding((int) (4 * scale + 0.5f),text.getPaddingTop(),text.getPaddingRight(),text.getPaddingBottom());
 
             ValueAnimator va = ValueAnimator.ofFloat(date.getAlpha(), 1.f);
             va.setDuration(DURATION);
