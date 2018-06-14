@@ -178,9 +178,7 @@ class WeatherFunction {
     static String[] getArr(JSONObject json, int num) throws JSONException {
         String[] arr;
 
-        arr = new String[num];
-
-        int temp = 0;
+        int temp;
 
         if(num > 8){
             temp = num - 8;
