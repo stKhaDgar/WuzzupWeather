@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         errorText.setVisibility(View.INVISIBLE);
                         changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorSmallTransparent));
-                        buttonAccept.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorWhite));
                     }
 
                     @Override
@@ -275,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
                             Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.error_et);
                             changeCityEdit.startAnimation(anim);
                             errorText.setVisibility(View.VISIBLE);
-                            buttonAccept.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
                             changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
                         }
 

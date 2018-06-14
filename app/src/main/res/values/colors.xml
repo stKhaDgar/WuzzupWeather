@@ -3,11 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorError">#ef3232</color>
+    <color name="colorError">#CCef3232</color>
     <color name="colorNormal">#aa333333</color>
     <color name="colorTransparent">#00ffffff</color>
     <color name="colorSmallTransparent">#55ffffff</color>
-    <color name="colorWhite">#ffffff</color>
 
 
 </resources>
