@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         errorText.setVisibility(View.INVISIBLE);
-                        changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorNormal));
+                        changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorSmallTransparent));
                     }
 
                     @Override
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
             view.setClickable(true);
-            view.setBackground(getDrawable(R.drawable.item_transparent_border_city));
+            view.setBackground(getDrawable(R.drawable.edit_change_city_drawable));
             view.setEnabled(true);
             view.setCursorVisible(true);
             view.setSelectAllOnFocus(true);
