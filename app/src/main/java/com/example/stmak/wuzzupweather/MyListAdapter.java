@@ -1,5 +1,6 @@
 package com.example.stmak.wuzzupweather;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -8,14 +9,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.lang.reflect.Type;
-
 public class MyListAdapter extends BaseAdapter{
     private Context context;
     private String[] arr;
     private Typeface weatherFont;
 
-    public MyListAdapter(Context context, String[] arr) {
+    MyListAdapter(Context context, String[] arr) {
         this.context = context;
         this.arr = arr;
         weatherFont = Typeface.createFromAsset(context.getAssets(), "fonts/weather.ttf");
@@ -26,6 +25,7 @@ public class MyListAdapter extends BaseAdapter{
         return arr.length;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View customView = convertView;
