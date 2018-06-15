@@ -221,18 +221,9 @@ public class MainActivity extends AppCompatActivity {
                             isBigTomorrow = false;
                         }
                         if(isBigAfterTomorrow){
-
                             hideElements(false, tv_date_after_tomorrow, weatherIconAfterTomorrow, temp_after_tomorrow, text_after_tomorrow);
-
-                            ValueAnimator va2 = ValueAnimator.ofInt(aftertomorrow_list.getHeight(), 0);
-                            va2.setDuration(DURATION);
-                            va2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    aftertomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                    aftertomorrow_list.requestLayout();
-                                }
-                            });
-                            va2.start();
+                            aftertomorrow_list.getLayoutParams().height = 0;
+                            aftertomorrow_list.requestLayout();
                             isBigAfterTomorrow = false;
                         }
 
