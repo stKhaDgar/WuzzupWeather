@@ -207,35 +207,17 @@ public class MainActivity extends AppCompatActivity {
                         changeIcon.setClickable(false);
                         loadBar.setVisibility(View.INVISIBLE);
                         changeIcon.startAnimation(animationRotationCenter);
-                        
+
                         if(isBigToday) {
-
                             hideElements(false, tv_date_now, weatherIconToday, temp_now, text_now);
-
-                            ValueAnimator va1 = ValueAnimator.ofInt(today_list.getHeight(), 0);
-                            va1.setDuration(DURATION);
-                            va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    today_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                    today_list.requestLayout();
-                                }
-                            });
-                            va1.start();
+                            today_list.getLayoutParams().height = 0;
+                            today_list.requestLayout();
                             isBigToday = false;
                         }
                         if(isBigTomorrow) {
-
                             hideElements(false, tv_date_tomorrow, weatherIconTomorrow, temp_tomorrow, text_tomorrow);
-
-                            ValueAnimator va1 = ValueAnimator.ofInt(tomorrow_list.getHeight(), 0);
-                            va1.setDuration(DURATION);
-                            va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    tomorrow_list.getLayoutParams().height = (Integer) animation.getAnimatedValue();
-                                    tomorrow_list.requestLayout();
-                                }
-                            });
-                            va1.start();
+                            tomorrow_list.getLayoutParams().height = 0;
+                            tomorrow_list.requestLayout();
                             isBigTomorrow = false;
                         }
                         if(isBigAfterTomorrow){
