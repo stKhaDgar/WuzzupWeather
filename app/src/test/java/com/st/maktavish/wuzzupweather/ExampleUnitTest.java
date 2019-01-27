@@ -1,4 +1,4 @@
-package com.example.stmak.wuzzupweather;
+package com.st.maktavish.wuzzupweather;
 
 import org.junit.Test;
 

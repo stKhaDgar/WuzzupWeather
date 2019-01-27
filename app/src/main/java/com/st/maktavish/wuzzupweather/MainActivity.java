@@ -1,4 +1,4 @@
-package com.example.stmak.wuzzupweather;
+package com.st.maktavish.wuzzupweather;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;

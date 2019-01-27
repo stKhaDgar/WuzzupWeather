@@ -1,4 +1,4 @@
-package com.example.stmak.wuzzupweather;
+package com.st.maktavish.wuzzupweather;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

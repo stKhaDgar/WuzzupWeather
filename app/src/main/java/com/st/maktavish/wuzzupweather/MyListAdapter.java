@@ -1,4 +1,4 @@
-package com.example.stmak.wuzzupweather;
+package com.st.maktavish.wuzzupweather;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

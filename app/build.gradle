@@ -15,7 +15,7 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.stmak.wuzzupweather"
+        applicationId "com.st.maktavish.wuzzupweather"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
