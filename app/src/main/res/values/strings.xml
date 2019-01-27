@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wuzzup Weather</string>
+    <string name="app_name">WWeather</string>
 
     <!-- activity_main.xml -->
     <string name="error_txt">Введите существующий город!</string>
