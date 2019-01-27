@@ -19,14 +19,14 @@ import java.util.TimeZone;
 class WeatherFunction {
 
     @SuppressLint("StaticFieldLeak")
-    public static Context context;
+    static Context context;
 
     private static final String OPEN_WEATHER_MAP_URL =
             "http://api.openweathermap.org/data/2.5/forecast?q=%s&units=metric";
 
     private static final String OPEN_WEATHER_MAP_API = "9579639d305a18621ede1c2a0ff57d0f";
 
-    static String setWeatherIcon(int actualId, String dt){
+    private static String setWeatherIcon(int actualId, String dt){
         int id = actualId / 100;
         String icon = "";
 
@@ -175,7 +175,7 @@ class WeatherFunction {
         }
     }
 
-    static String[] getArr(JSONObject json, int num) throws JSONException {
+    private static String[] getArr(JSONObject json, int num) throws JSONException {
         String[] arr;
 
         int temp;
@@ -204,7 +204,7 @@ class WeatherFunction {
         return arr;
     }
 
-    static JSONObject getWeatherJSON(String city){
+    private static JSONObject getWeatherJSON(String city){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, city));
             HttpURLConnection connection =

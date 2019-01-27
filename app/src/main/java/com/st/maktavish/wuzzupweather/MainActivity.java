@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -101,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         // change bg/icon from time
         Calendar c = Calendar.getInstance();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeformat = new SimpleDateFormat("HH");
-        int currentTime = Integer.parseInt(timeformat.format(c.getTime()));
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormat = new SimpleDateFormat("HH");
+        int currentTime = Integer.parseInt(timeFormat.format(c.getTime()));
         changesFromCurrentTime(currentTime);
 
         setActiveACTextView(changeCityEdit, false);
@@ -111,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
         animationsFromStart();
 
-
-        // TODO: finish this good. Добавить там где они впервые инициализируются
         findViewById(R.id.list_view_today).setEnabled(false);
         findViewById(R.id.list_view_tomorrow).setEnabled(false);
         findViewById(R.id.list_view_day_after_tomorrow).setEnabled(false);
@@ -147,22 +146,22 @@ public class MainActivity extends AppCompatActivity {
         loadBar = findViewById(R.id.load);
         loadBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#99ffffff"), android.graphics.PorterDuff.Mode.MULTIPLY);
         if(currentTime >= 5 && currentTime < 12){
-            mainLayout.setBackground(getDrawable(R.drawable.morning_background));
-            iconDayTaime.setBackground(getDrawable(R.drawable.morning_icon));
+            mainLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.morning_background));
+            iconDayTaime.setBackground(ContextCompat.getDrawable(this, R.drawable.morning_icon));
             text_now.setTextColor(Color.parseColor("#ea607e"));
             temp_now.setTextColor(Color.parseColor("#ea607e"));
             weatherIconToday.setTextColor(Color.parseColor("#ea607e"));
         }
         else if(currentTime >= 12 && currentTime < 21 ){
-            mainLayout.setBackground(getDrawable(R.drawable.day_background));
-            iconDayTaime.setBackground(getDrawable(R.drawable.day_icon));
+            mainLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.day_background));
+            iconDayTaime.setBackground(ContextCompat.getDrawable(this, R.drawable.day_icon));
             text_now.setTextColor(Color.parseColor("#46cbf7"));
             temp_now.setTextColor(Color.parseColor("#46cbf7"));
             weatherIconToday.setTextColor(Color.parseColor("#46cbf7"));
         }
         else if((currentTime >= 21 && currentTime <= 24) || (currentTime >= 0 && currentTime < 5)){
-            mainLayout.setBackground(getDrawable(R.drawable.night_background));
-            iconDayTaime.setBackground(getDrawable(R.drawable.night_icon));
+            mainLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.night_background));
+            iconDayTaime.setBackground(ContextCompat.getDrawable(this, R.drawable.night_icon));
             text_now.setTextColor(Color.parseColor("#b056b8"));
             temp_now.setTextColor(Color.parseColor("#b056b8"));
             weatherIconToday.setTextColor(Color.parseColor("#b056b8"));
@@ -250,7 +249,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         errorText.setVisibility(View.INVISIBLE);
-                        changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorSmallTransparent));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorSmallTransparent));
+                        } else {
+                            changeCityEdit.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorTransparent));
+                        }
                     }
 
                     @Override
@@ -293,7 +296,11 @@ public class MainActivity extends AppCompatActivity {
                             Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.error_et);
                             changeCityEdit.startAnimation(anim);
                             errorText.setVisibility(View.VISIBLE);
-                            changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                changeCityEdit.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorError));
+                            } else {
+                                changeCityEdit.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorError));
+                            }
                         }
 
                     }
@@ -381,16 +388,6 @@ public class MainActivity extends AppCompatActivity {
         asyncTask.execute(city);
     }
 
-    // TODO: finished this idea
-//    public boolean isNetworkAvailable() {
-//        ConnectivityManager connectivityManager
-//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        assert connectivityManager != null;
-//            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-//    }
-
-    // TODO: DO something with that функция чтобы проверять города по dataBase
     public boolean checkCity (String city){
         for (String City : Cities) {
             if (City.equals(city))
@@ -402,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
     public void setActiveACTextView(AutoCompleteTextView view, boolean bool) {
         if(bool) {
             view.setClickable(true);
-            view.setBackground(getDrawable(R.drawable.edit_change_city_drawable));
+            view.setBackground(ContextCompat.getDrawable(this, R.drawable.edit_change_city_drawable));
             view.setEnabled(true);
             view.setCursorVisible(true);
             view.setSelectAllOnFocus(true);
@@ -428,11 +425,11 @@ public class MainActivity extends AppCompatActivity {
     private void loadText() {
         sPrefCity = getPreferences(MODE_PRIVATE);
         String savedTextCity= sPrefCity.getString(SAVED_TEXT, "");
-        if(savedTextCity.length() == 0){
+        if(savedTextCity != null && savedTextCity.length() == 0){
             changeCity("Kiev");
             changeCityEdit.setText(R.string.default_city);
             currentCountryField.setText(R.string.default_country);
-        } else {
+        } else if (savedTextCity != null) {
             String[] ct = savedTextCity.trim().split("[;]");
 
             changeCity(ct[0]);
